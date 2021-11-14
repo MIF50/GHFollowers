@@ -84,7 +84,7 @@ class URLSessionHTTPClientTests: XCTestCase {
     // MARK: - Helper
     
     private func makeSUT(file: StaticString = #filePath,
-                         line: UInt = #line)-> URLSessionHTTPClient {
+                         line: UInt = #line)-> HTTPClient {
         let sut = URLSessionHTTPClient()
         return sut
     }
