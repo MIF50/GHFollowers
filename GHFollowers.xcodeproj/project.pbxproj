@@ -109,6 +109,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		04C222F12740C3EE004B7B56 /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				B57DE0852529F2490048F8E8 /* NetworkManager.swift */,
+			);
+			path = Networking;
+			sourceTree = "<group>";
+		};
 		B563F39125332B520017A68A /* ItemInfo */ = {
 			isa = PBXGroup;
 			children = (
@@ -141,6 +149,7 @@
 			children = (
 				B57DE03A2529D5DC0048F8E8 /* Support */,
 				B57DE03E2529D60F0048F8E8 /* Extensions */,
+				04C222F12740C3EE004B7B56 /* Networking */,
 				B57DE03D2529D6010048F8E8 /* Managers */,
 				B57DE03C2529D5F60048F8E8 /* Models */,
 				B57DE03B2529D5EC0048F8E8 /* Screens */,
@@ -223,7 +232,6 @@
 			isa = PBXGroup;
 			children = (
 				B57DE0822529F2190048F8E8 /* PersistenceManager.swift */,
-				B57DE0852529F2490048F8E8 /* NetworkManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
