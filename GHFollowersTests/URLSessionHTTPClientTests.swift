@@ -25,11 +25,16 @@ class URLSessionHTTPClient {
         self.session = session
     }
     
+    struct UnExpectedValuesRepresentation: Error { }
+    
     func get(from url: URL,completion:@escaping ((HTTPClientResult)-> Void)) {
-        session.dataTask(with: url) { _, _, error in
-            
+        session.dataTask(with: url) { data, response, error in
             if let error = error {
                 completion(.failure(error))
+            } else if let data = data, let response = response as? HTTPURLResponse {
+                completion(.success(data, response))
+            } else {
+                completion(.failure(UnExpectedValuesRepresentation()))
             }
             
         }.resume()
@@ -72,6 +77,21 @@ class URLSessionHTTPClientTests: XCTestCase {
         
         XCTAssertEqual(receivedError?.domain, requestError.domain)
         XCTAssertEqual(receivedError?.code, requestError.code)
+    }
+    
+    func test_getFromURL_failsOnAllInvalidRepresentationCases() {
+        let anyError = NSError.anyNSError
+        let anyData = Data.anyData
+        
+        XCTAssertNotNil(resultErrorFor(data: nil,response: nil,error: nil))
+        XCTAssertNotNil(resultErrorFor(data: nil, response: nonHTTPURLResponse(), error: nil))
+        XCTAssertNotNil(resultErrorFor(data: anyData,response: nil, error: nil))
+        XCTAssertNotNil(resultErrorFor(data: anyData,response: nil, error: anyError))
+        XCTAssertNotNil(resultErrorFor(data: nil,response: nonHTTPURLResponse(), error: anyError))
+        XCTAssertNotNil(resultErrorFor(data: nil,response: anyHTTPURLResponse(), error: anyError))
+        XCTAssertNotNil(resultErrorFor(data: anyData,response: nonHTTPURLResponse(), error: anyError))
+        XCTAssertNotNil(resultErrorFor(data: anyData,response: anyHTTPURLResponse(), error: anyError))
+        XCTAssertNotNil(resultErrorFor(data: nil,response: nonHTTPURLResponse(), error: nil))
     }
     
     // MARK: - Helper
@@ -117,6 +137,14 @@ class URLSessionHTTPClientTests: XCTestCase {
         wait(for: [exp], timeout: 1.0)
         
         return receivedResult
+    }
+    
+    func nonHTTPURLResponse()-> URLResponse {
+        return URLResponse(url: URL.anyURL, mimeType: nil, expectedContentLength: 0, textEncodingName: nil)
+    }
+    
+    func anyHTTPURLResponse()-> HTTPURLResponse? {
+        return HTTPURLResponse(url: URL.anyURL, statusCode: 200, httpVersion: nil, headerFields: nil)
     }
     
     final class URLProtocolStub: URLProtocol {
