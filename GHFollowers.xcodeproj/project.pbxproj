@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		044EC94C27413A0700D0A240 /* URLProtocolStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044EC94B27413A0700D0A240 /* URLProtocolStub.swift */; };
 		044EC94E27413A6200D0A240 /* HTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044EC94D27413A6200D0A240 /* HTTPClient.swift */; };
+		044EC95027413AAA00D0A240 /* URLSessionHTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044EC94F27413AAA00D0A240 /* URLSessionHTTPClient.swift */; };
 		04C223022740C58D004B7B56 /* URLSessionHTTPClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C223012740C58D004B7B56 /* URLSessionHTTPClientTests.swift */; };
 		B55902B025664B36006D46B3 /* UIView+Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = B55902AF25664B36006D46B3 /* UIView+Layout.swift */; };
 		B563F3802533089D0017A68A /* GFTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B563F37F2533089D0017A68A /* GFTabBarController.swift */; };
@@ -67,6 +68,7 @@
 /* Begin PBXFileReference section */
 		044EC94B27413A0700D0A240 /* URLProtocolStub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLProtocolStub.swift; sourceTree = "<group>"; };
 		044EC94D27413A6200D0A240 /* HTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClient.swift; sourceTree = "<group>"; };
+		044EC94F27413AAA00D0A240 /* URLSessionHTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionHTTPClient.swift; sourceTree = "<group>"; };
 		04C222F82740C52C004B7B56 /* GHFollowersTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GHFollowersTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		04C223012740C58D004B7B56 /* URLSessionHTTPClientTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionHTTPClientTests.swift; sourceTree = "<group>"; };
 		B55902AF25664B36006D46B3 /* UIView+Layout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Layout.swift"; sourceTree = "<group>"; };
@@ -146,6 +148,7 @@
 			children = (
 				B57DE0852529F2490048F8E8 /* NetworkManager.swift */,
 				044EC94D27413A6200D0A240 /* HTTPClient.swift */,
+				044EC94F27413AAA00D0A240 /* URLSessionHTTPClient.swift */,
 			);
 			path = Networking;
 			sourceTree = "<group>";
@@ -462,6 +465,7 @@
 				B57DE0832529F2190048F8E8 /* PersistenceManager.swift in Sources */,
 				B563F38625330A460017A68A /* FavoritesListVC.swift in Sources */,
 				B57DE0782529EFBA0048F8E8 /* Constants.swift in Sources */,
+				044EC95027413AAA00D0A240 /* URLSessionHTTPClient.swift in Sources */,
 				B57DE0462529D6B20048F8E8 /* String+Ext.swift in Sources */,
 				B563F39A25332D470017A68A /* GFRepoItemVC.swift in Sources */,
 				B57DE0712529DB8F0048F8E8 /* GFItemInfoView.swift in Sources */,
