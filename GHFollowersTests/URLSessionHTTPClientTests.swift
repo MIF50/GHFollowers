@@ -152,21 +152,3 @@ class URLSessionHTTPClientTests: XCTestCase {
         return HTTPURLResponse(url: URL.anyURL, statusCode: 200, httpVersion: nil, headerFields: nil)
     }
 }
-
-extension URL {
-    static var anyURL: URL {
-        return URL(string: "https://any-url.com")!
-    }
-}
-
-extension NSError {
-    static var anyNSError: NSError {
-        return NSError(domain: "any error", code: 0)
-    }
-}
-
-extension Data {
-    static var anyData: Data {
-        return Data("any data".utf8)
-    }
-}
