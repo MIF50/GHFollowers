@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		044EC94C27413A0700D0A240 /* URLProtocolStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044EC94B27413A0700D0A240 /* URLProtocolStub.swift */; };
+		044EC94E27413A6200D0A240 /* HTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044EC94D27413A6200D0A240 /* HTTPClient.swift */; };
 		04C223022740C58D004B7B56 /* URLSessionHTTPClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C223012740C58D004B7B56 /* URLSessionHTTPClientTests.swift */; };
 		B55902B025664B36006D46B3 /* UIView+Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = B55902AF25664B36006D46B3 /* UIView+Layout.swift */; };
 		B563F3802533089D0017A68A /* GFTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B563F37F2533089D0017A68A /* GFTabBarController.swift */; };
@@ -65,6 +66,7 @@
 
 /* Begin PBXFileReference section */
 		044EC94B27413A0700D0A240 /* URLProtocolStub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLProtocolStub.swift; sourceTree = "<group>"; };
+		044EC94D27413A6200D0A240 /* HTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClient.swift; sourceTree = "<group>"; };
 		04C222F82740C52C004B7B56 /* GHFollowersTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GHFollowersTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		04C223012740C58D004B7B56 /* URLSessionHTTPClientTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionHTTPClientTests.swift; sourceTree = "<group>"; };
 		B55902AF25664B36006D46B3 /* UIView+Layout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Layout.swift"; sourceTree = "<group>"; };
@@ -143,6 +145,7 @@
 			isa = PBXGroup;
 			children = (
 				B57DE0852529F2490048F8E8 /* NetworkManager.swift */,
+				044EC94D27413A6200D0A240 /* HTTPClient.swift */,
 			);
 			path = Networking;
 			sourceTree = "<group>";
@@ -480,6 +483,7 @@
 				B563F38C25330D700017A68A /* GFDataLoadingVC.swift in Sources */,
 				B57DE08C2529F2A10048F8E8 /* Follower.swift in Sources */,
 				B57DE06B2529DB520048F8E8 /* GFEmptyStateView.swift in Sources */,
+				044EC94E27413A6200D0A240 /* HTTPClient.swift in Sources */,
 				B57DE0532529DA2F0048F8E8 /* GFAlertVC.swift in Sources */,
 				B57DE0862529F2490048F8E8 /* NetworkManager.swift in Sources */,
 				B57DE0432529D69C0048F8E8 /* UIView+Ext.swift in Sources */,
