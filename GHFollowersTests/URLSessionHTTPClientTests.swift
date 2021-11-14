@@ -94,12 +94,41 @@ class URLSessionHTTPClientTests: XCTestCase {
         XCTAssertNotNil(resultErrorFor(data: nil,response: nonHTTPURLResponse(), error: nil))
     }
     
+    func test_getFromURL_succeedsOnHTTPURLResponseWithData() {
+        let data = Data.anyData
+        let response = anyHTTPURLResponse()
+        
+        let receivedValues = resultValuesFor(data: data,response: response,error: nil)
+        
+        XCTAssertEqual(receivedValues?.data, data)
+        XCTAssertEqual(receivedValues?.response.url, response?.url)
+        XCTAssertEqual(receivedValues?.response.statusCode, response?.statusCode)
+    }
+    
     // MARK: - Helper
     
     private func makeSUT(file: StaticString = #filePath,
                          line: UInt = #line)-> URLSessionHTTPClient {
         let sut = URLSessionHTTPClient()
         return sut
+    }
+    
+    private func resultValuesFor(data: Data?,
+                                 response: URLResponse?,
+                                 error:NSError?,
+                                 file: StaticString = #filePath,
+                                 line: UInt = #line)-> (data: Data,response: HTTPURLResponse)? {
+        
+        let result = resultFor(data: data, response: response, error: error,file: file,line: line)
+        
+        switch result {
+        case let .success(data,response):
+            return (data,response)
+        default:
+            XCTFail("Expected success got \(result) instead",file: file,line: line)
+            return nil
+        }
+        
     }
     
     private func resultErrorFor(data: Data?,
@@ -194,6 +223,14 @@ class URLSessionHTTPClientTests: XCTestCase {
             
             if let error = URLProtocolStub.sub?.error {
                 client?.urlProtocol(self, didFailWithError: error)
+            }
+            
+            if let response = URLProtocolStub.sub?.response {
+                client?.urlProtocol(self, didReceive: response, cacheStoragePolicy: .notAllowed)
+            }
+            
+            if let data = URLProtocolStub.sub?.data {
+                client?.urlProtocol(self, didLoad: data)
             }
             
             client?.urlProtocolDidFinishLoading(self)
