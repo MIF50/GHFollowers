@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		044EC94C27413A0700D0A240 /* URLProtocolStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044EC94B27413A0700D0A240 /* URLProtocolStub.swift */; };
 		04C223022740C58D004B7B56 /* URLSessionHTTPClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C223012740C58D004B7B56 /* URLSessionHTTPClientTests.swift */; };
 		B55902B025664B36006D46B3 /* UIView+Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = B55902AF25664B36006D46B3 /* UIView+Layout.swift */; };
 		B563F3802533089D0017A68A /* GFTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B563F37F2533089D0017A68A /* GFTabBarController.swift */; };
@@ -63,6 +64,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		044EC94B27413A0700D0A240 /* URLProtocolStub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLProtocolStub.swift; sourceTree = "<group>"; };
 		04C222F82740C52C004B7B56 /* GHFollowersTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GHFollowersTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		04C223012740C58D004B7B56 /* URLSessionHTTPClientTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionHTTPClientTests.swift; sourceTree = "<group>"; };
 		B55902AF25664B36006D46B3 /* UIView+Layout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Layout.swift"; sourceTree = "<group>"; };
@@ -129,6 +131,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		044EC94A274139EF00D0A240 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				044EC94B27413A0700D0A240 /* URLProtocolStub.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
 		04C222F12740C3EE004B7B56 /* Networking */ = {
 			isa = PBXGroup;
 			children = (
@@ -140,6 +150,7 @@
 		04C222F92740C52C004B7B56 /* GHFollowersTests */ = {
 			isa = PBXGroup;
 			children = (
+				044EC94A274139EF00D0A240 /* Helpers */,
 				04C223012740C58D004B7B56 /* URLSessionHTTPClientTests.swift */,
 			);
 			path = GHFollowersTests;
@@ -435,6 +446,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				04C223022740C58D004B7B56 /* URLSessionHTTPClientTests.swift in Sources */,
+				044EC94C27413A0700D0A240 /* URLProtocolStub.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
