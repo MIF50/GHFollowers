@@ -6,6 +6,7 @@
 //
 
 import XCTest
+@testable import GHFollowers
 
 enum HTTPClientResult {
     case success(Data,HTTPURLResponse)
@@ -25,7 +26,11 @@ class URLSessionHTTPClient {
     }
     
     func get(from url: URL,completion:@escaping ((HTTPClientResult)-> Void)) {
-        session.dataTask(with: url) { _, _, _ in
+        session.dataTask(with: url) { _, _, error in
+            
+            if let error = error {
+                completion(.failure(error))
+            }
             
         }.resume()
     }
@@ -60,17 +65,71 @@ class URLSessionHTTPClientTests: XCTestCase {
         wait(for: [exp], timeout: 1.0)
     }
     
+    func test_getFromURL_failsOnErrorClient() {
+        let requestError = NSError.anyNSError
+        
+        let receivedError = resultErrorFor(data: nil, response: nil, error: requestError)
+        
+        XCTAssertEqual(receivedError?.domain, requestError.domain)
+        XCTAssertEqual(receivedError?.code, requestError.code)
+    }
+    
     // MARK: - Helper
     
-    private func makeSUT()-> URLSessionHTTPClient {
+    private func makeSUT(file: StaticString = #filePath,
+                         line: UInt = #line)-> URLSessionHTTPClient {
         let sut = URLSessionHTTPClient()
         return sut
+    }
+    
+    private func resultErrorFor(data: Data?,
+                                response: URLResponse?,
+                                error:NSError?,
+                                file: StaticString = #filePath,
+                                line: UInt = #line)-> NSError? {
+        
+        let result = resultFor(data: data, response: response, error: error)
+        
+        switch result {
+        case let .failure(error as NSError):
+            return error
+        default:
+            XCTFail("Expected failure got \(result) instead",file: file,line: line)
+            return nil
+        }
+    }
+    
+    private func resultFor(data: Data?,
+                           response: URLResponse?,
+                           error:NSError?,
+                           file: StaticString = #filePath,
+                           line: UInt = #line) -> HTTPClientResult {
+        URLProtocolStub.stub(data: data,response: response,error: error)
+        let sut = makeSUT(file: file,line: line)
+        
+        var receivedResult: HTTPClientResult!
+        let exp = expectation(description: "Wating for completion")
+        sut.get(from: URL.anyURL) { result in
+            receivedResult = result
+            exp.fulfill()
+        }
+        
+        wait(for: [exp], timeout: 1.0)
+        
+        return receivedResult
     }
     
     final class URLProtocolStub: URLProtocol {
         
         private static var requestObserver: ((URLRequest)-> Void)?
+        private static var sub: Stub?
         
+        
+        private struct Stub {
+            let data: Data?
+            let response: URLResponse?
+            let error: NSError?
+        }
         
         static func startInterceptingRequest() {
             URLProtocolStub.registerClass(URLProtocolStub.self)
@@ -78,6 +137,12 @@ class URLSessionHTTPClientTests: XCTestCase {
         
         static func stopInterceptingRequest() {
             URLProtocolStub.unregisterClass(URLProtocolStub.self)
+            sub = nil
+            requestObserver = nil
+        }
+        
+        static func stub(data: Data?,response: URLResponse?,error: NSError?) {
+            sub = Stub(data: data, response: response, error: error)
         }
         
         static func observeRequest(_ request:@escaping ((URLRequest)-> Void)) {
@@ -97,6 +162,10 @@ class URLSessionHTTPClientTests: XCTestCase {
             if let requestObserver = URLProtocolStub.requestObserver {
                 client?.urlProtocolDidFinishLoading(self)
                 return requestObserver(request)
+            }
+            
+            if let error = URLProtocolStub.sub?.error {
+                client?.urlProtocol(self, didFailWithError: error)
             }
             
             client?.urlProtocolDidFinishLoading(self)
