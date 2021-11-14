@@ -19,7 +19,9 @@ class RemoteUserLoader {
     }
     
     func load(completoin: @escaping((LoadUserResult)-> Void)) {
-        
+        client.get(from: url) { result in
+            
+        }
     }
 }
 
@@ -29,6 +31,15 @@ class RemoteUserLoaderTests: XCTestCase {
         let (_,client) = makeSUT()
         
         XCTAssertTrue(client.requestedURLs.isEmpty)
+    }
+    
+    func test_load_requestDataFromURL() {
+        let url = URL.anyURL
+        let (sut,client) = makeSUT(url: url)
+        
+        sut.load { _ in }
+        
+        XCTAssertEqual(client.requestedURLs, [url])
     }
     
     // MARK: - Helper
@@ -51,7 +62,7 @@ class RemoteUserLoaderTests: XCTestCase {
         }
         
         func get(from url: URL, completion: @escaping ((HTTPClientResult) -> Void)) {
-            
+            messages.append((url,completion))
         }
     }
 
