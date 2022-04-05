@@ -12,6 +12,10 @@ class RemoteUserLoader {
     
     typealias Result = LoadUserResult
     
+    enum Error: Swift.Error {
+        case connectiviy
+    }
+    
     private let url: URL
     private let client: HTTPClient
     
@@ -23,8 +27,8 @@ class RemoteUserLoader {
     func load(completoin: @escaping((Result)-> Void)) {
         client.get(from: url) { result in
             switch result {
-            case let .failure(error):
-                completoin(.failure(error))
+            case .failure:
+                completoin(.failure(Error.connectiviy))
             default: break
             }
         }
@@ -59,10 +63,10 @@ class RemoteUserLoaderTests: XCTestCase {
     }
     
     func test_load_deliversErrorOnClientError() {
-        let clientError = NSError.anyNSError
         let (sut, client) = makeSUT()
         
-        expect(sut, toCompletWith: .failure(clientError)) {
+        expect(sut, toCompletWith: failure(.connectiviy)) {
+            let clientError = NSError.anyNSError
             client.complete(with: clientError)
         }
     }
@@ -102,6 +106,10 @@ class RemoteUserLoaderTests: XCTestCase {
         action()
         
         wait(for: [exp], timeout: 1.0)
+    }
+    
+    private func failure(_ error: RemoteUserLoader.Error)-> RemoteUserLoader.Result {
+        .failure(error)
     }
     
     private class HTTPClientSpy: HTTPClient {
