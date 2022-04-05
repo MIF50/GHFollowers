@@ -20,7 +20,11 @@ class RemoteUserLoader {
     
     func load(completoin: @escaping((LoadUserResult)-> Void)) {
         client.get(from: url) { result in
-            
+            switch result {
+            case let .failure(error):
+                completoin(.failure(error))
+            default: break
+            }
         }
     }
 }
@@ -52,6 +56,40 @@ class RemoteUserLoaderTests: XCTestCase {
         XCTAssertEqual(client.requestedURLs, [url,url])
     }
     
+    func test_load_deliversErrorOnClientError() {
+        let clientError = NSError.anyNSError
+        let (sut, client) = makeSUT()
+
+        let exp = expectation(description: "Waiting for completion")
+        var receivedError: Error? = nil
+        sut.load { result in
+            switch result {
+            case let .failure(error):
+                receivedError = error
+            default:
+                XCTFail("Expected failure with error,got \(result) instead")
+            }
+            exp.fulfill()
+        }
+        
+        client.complete(with: clientError)
+
+        wait(for: [exp], timeout: 1.0)
+        
+        XCTAssertEqual(receivedError as NSError?, clientError)
+    }
+    
+//    private func expect(_ sut: RemoteUserLoader,
+//                        toCompletWith expectedResult: RemoteUserLoader.Result,
+//                        when action: (()-> Void),
+//                        file: StaticString = #filePath,
+//                        line: UInt = #line) {
+//        let exp = expectation(description: "waiting for Completion")
+//        sut.load { recievedResult in
+//            switch (
+//        }
+//    }
+    
     // MARK: - Helper
     
     private func makeSUT(url: URL = URL(string: "https://a-url.com")!,
@@ -73,6 +111,10 @@ class RemoteUserLoaderTests: XCTestCase {
         
         func get(from url: URL, completion: @escaping ((HTTPClientResult) -> Void)) {
             messages.append((url,completion))
+        }
+        
+        func complete(with error: Error,at index: Int = 0) {
+            messages[index].completion(.failure(error))
         }
     }
 
