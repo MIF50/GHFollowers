@@ -14,6 +14,7 @@ class RemoteUserLoader {
     
     enum Error: Swift.Error {
         case connectiviy
+        case invalidData
     }
     
     private let url: URL
@@ -27,9 +28,12 @@ class RemoteUserLoader {
     func load(completoin: @escaping((Result)-> Void)) {
         client.get(from: url) { result in
             switch result {
+            case let .success(data, response):
+                if response.statusCode != 200 {
+                    completoin(.failure(Error.invalidData))
+                }
             case .failure:
                 completoin(.failure(Error.connectiviy))
-            default: break
             }
         }
     }
@@ -65,9 +69,21 @@ class RemoteUserLoaderTests: XCTestCase {
     func test_load_deliversErrorOnClientError() {
         let (sut, client) = makeSUT()
         
-        expect(sut, toCompletWith: failure(.connectiviy)) {
+        expect(sut, toCompletWith: failure(.connectiviy),when: {
             let clientError = NSError.anyNSError
             client.complete(with: clientError)
+        })
+    }
+    
+    func test_load_deliversErrorOnNon200HTTPResponse() {
+        let (sut, client) = makeSUT()
+        
+        let samples = [150,199,201,300,400,500]
+        samples.enumerated().forEach { index,code in
+            expect(sut, toCompletWith: failure(.invalidData), when: {
+                let json = makeItemJSON([])
+                client.complete(withStatusCode: code,data: json,at: index)
+            })
         }
     }
 
@@ -112,6 +128,11 @@ class RemoteUserLoaderTests: XCTestCase {
         .failure(error)
     }
     
+    private func makeItemJSON(_ items: [[String: Any]])-> Data {
+//        let json = ["items": items]
+        return try! JSONSerialization.data(withJSONObject: items)
+    }
+    
     private class HTTPClientSpy: HTTPClient {
         
         private var messages = [(url: URL,completion: (HTTPClientResult)-> Void)]()
@@ -126,6 +147,11 @@ class RemoteUserLoaderTests: XCTestCase {
         
         func complete(with error: Error,at index: Int = 0) {
             messages[index].completion(.failure(error))
+        }
+        
+        func complete(withStatusCode code: Int,data: Data,at index: Int = 0) {
+            let response = HTTPURLResponse(url: requestedURLs[index], statusCode: code, httpVersion: nil, headerFields: nil)!
+            messages[index].completion(.success(data, response))
         }
     }
 
