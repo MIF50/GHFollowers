@@ -75,7 +75,8 @@ class RemoteUserLoaderTests: XCTestCase {
                          line: UInt = #line)->(sut: RemoteUserLoader,client: HTTPClientSpy) {
         let client = HTTPClientSpy()
         let sut = RemoteUserLoader(url: url,client: client)
-        
+        trackForMemoryLeak(client,file: file,line: line)
+        trackForMemoryLeak(sut,file: file,line: line)
         return (sut,client)
     }
     
