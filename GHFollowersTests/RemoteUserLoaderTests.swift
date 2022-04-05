@@ -10,6 +10,8 @@ import GHFollowers
 
 class RemoteUserLoader {
     
+    typealias Result = LoadUserResult
+    
     private let url: URL
     private let client: HTTPClient
     
@@ -18,7 +20,7 @@ class RemoteUserLoader {
         self.client = client
     }
     
-    func load(completoin: @escaping((LoadUserResult)-> Void)) {
+    func load(completoin: @escaping((Result)-> Void)) {
         client.get(from: url) { result in
             switch result {
             case let .failure(error):
@@ -59,36 +61,12 @@ class RemoteUserLoaderTests: XCTestCase {
     func test_load_deliversErrorOnClientError() {
         let clientError = NSError.anyNSError
         let (sut, client) = makeSUT()
-
-        let exp = expectation(description: "Waiting for completion")
-        var receivedError: Error? = nil
-        sut.load { result in
-            switch result {
-            case let .failure(error):
-                receivedError = error
-            default:
-                XCTFail("Expected failure with error,got \(result) instead")
-            }
-            exp.fulfill()
+        
+        expect(sut, toCompletWith: .failure(clientError)) {
+            client.complete(with: clientError)
         }
-        
-        client.complete(with: clientError)
-
-        wait(for: [exp], timeout: 1.0)
-        
-        XCTAssertEqual(receivedError as NSError?, clientError)
     }
-    
-//    private func expect(_ sut: RemoteUserLoader,
-//                        toCompletWith expectedResult: RemoteUserLoader.Result,
-//                        when action: (()-> Void),
-//                        file: StaticString = #filePath,
-//                        line: UInt = #line) {
-//        let exp = expectation(description: "waiting for Completion")
-//        sut.load { recievedResult in
-//            switch (
-//        }
-//    }
+
     
     // MARK: - Helper
     
@@ -99,6 +77,30 @@ class RemoteUserLoaderTests: XCTestCase {
         let sut = RemoteUserLoader(url: url,client: client)
         
         return (sut,client)
+    }
+    
+    private func expect(
+        _ sut: RemoteUserLoader,
+        toCompletWith expectedResult: RemoteUserLoader.Result,
+        when action: (()-> Void),
+        file: StaticString = #filePath,
+        line: UInt = #line
+    ) {
+        let exp = expectation(description: "waiting for Completion")
+        
+        sut.load { receivedResult in
+            switch (receivedResult,expectedResult) {
+            case let (.failure(receivedError as NSError),.failure(expectedError as NSError)):
+                XCTAssertEqual(receivedError, expectedError,file: file,line: line)
+            default:
+                XCTFail("Expected result \(expectedResult) got \(receivedResult) instead")
+            }
+            exp.fulfill()
+        }
+        
+        action()
+        
+        wait(for: [exp], timeout: 1.0)
     }
     
     private class HTTPClientSpy: HTTPClient {
