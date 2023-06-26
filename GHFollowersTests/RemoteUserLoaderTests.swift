@@ -29,7 +29,9 @@ class RemoteUserLoader {
         client.get(from: url) { result in
             switch result {
             case let .success(data, response):
-                if response.statusCode != 200 {
+                if response.statusCode == 200, let _ = try? JSONSerialization.jsonObject(with: data) {
+                    completoin(.success(nil))
+                } else {
                     completoin(.failure(Error.invalidData))
                 }
             case .failure:
@@ -86,6 +88,15 @@ class RemoteUserLoaderTests: XCTestCase {
             })
         }
     }
+    
+    func test_load_deliversErrorOn200HTTPResponseWithInvalidJson() {
+        let (sut, client) = makeSUT()
+        
+        expect(sut, toCompletWith: failure(.invalidData), when: {
+            let invalidData = Data("invalid data".utf8)
+            client.complete(withStatusCode: 200, data: invalidData)
+        })
+    }
 
     
     // MARK: - Helper
@@ -114,7 +125,7 @@ class RemoteUserLoaderTests: XCTestCase {
             case let (.failure(receivedError as NSError),.failure(expectedError as NSError)):
                 XCTAssertEqual(receivedError, expectedError,file: file,line: line)
             default:
-                XCTFail("Expected result \(expectedResult) got \(receivedResult) instead")
+                XCTFail("Expected result \(expectedResult) got \(receivedResult) instead",file: file,line: line)
             }
             exp.fulfill()
         }

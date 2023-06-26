@@ -8,15 +8,15 @@
 import Foundation
 
 public struct RemoteUser: Codable {
-    let login: String
-    let avatar_url: String
-    var location: String?
-    var name: String?
-    var bio: String?
-    let public_repos: Int
-    let public_gists: Int
-    let followers: Int
-    let following: Int
-    let html_url: String
-    let created_at: Date
+    public let login: String
+    public let avatar_url: String
+    public var location: String?
+    public var name: String?
+    public var bio: String?
+    public let public_repos: Int
+    public let public_gists: Int
+    public let followers: Int
+    public let following: Int
+    public let html_url: String
+    public let created_at: Date
 }

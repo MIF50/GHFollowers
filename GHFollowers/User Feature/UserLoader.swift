@@ -8,7 +8,7 @@
 import Foundation
 
 public enum LoadUserResult {
-    case success(User)
+    case success(RemoteUser?)
     case failure(Error)
 }
 
