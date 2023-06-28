@@ -8,4 +8,7 @@
 import XCTest
 
 final class GHFollowersTests: XCTestCase {
+    func test_empty() {
+
+    }
 }
