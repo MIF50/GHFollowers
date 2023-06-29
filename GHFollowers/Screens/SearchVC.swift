@@ -106,10 +106,9 @@ extension SearchVC: UITextFieldDelegate {
 // MARK:- create UINavigationController for SearchVC
 extension SearchVC {
     
-    static func create()-> UINavigationController {
-        let searchVC = SearchVC()
-        searchVC.title = "Search"
-        searchVC.tabBarItem = UITabBarItem(tabBarSystemItem: .search, tag: 0)
-        return UINavigationController(rootViewController: searchVC)
+    static func create()-> SearchVC {
+        let vc = SearchVC()
+        vc.title = "Search"
+        return vc
     }
 }

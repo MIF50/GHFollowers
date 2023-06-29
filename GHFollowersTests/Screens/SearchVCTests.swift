@@ -12,9 +12,10 @@ class SearchVCTests: XCTestCase {
     }
 
     // MARK:- Helpers
+    
     private func makeSUT() -> SearchVC {
         let sut = SearchVC.create()
         sut.loadViewIfNeeded()
-        return sut.topViewController as! SearchVC
+        return sut
     }
 }
