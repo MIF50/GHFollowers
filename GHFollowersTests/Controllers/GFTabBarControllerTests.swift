@@ -35,6 +35,20 @@ class GFTabBarControllerTests: XCTestCase {
         XCTAssertEqual(tabBar?.image,tabBarSearchImage,"Tab bar item should have the 'search' system item type.")
     }
     
+    func test_viewDidLoad_secondFavoritesListViewController() {
+        let sut = makeSUT()
+        
+        guard let nav = sut.viewControllers?[1] as? UINavigationController else {
+            XCTFail("First ViewController should be of type 'UINavigationController'")
+            return
+        }
+        
+        guard let _ = nav.topViewController as? FavoritesListVC else {
+            XCTFail("Root view controller should be of type 'FavoritesListVC'")
+            return
+        }
+    }
+    
     //MARK: - Helpers
     
     private func makeSUT() -> GFTabBarController {

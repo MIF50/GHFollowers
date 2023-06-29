@@ -106,10 +106,9 @@ extension FavoritesListVC: UITableViewDataSource, UITableViewDelegate {
 
 extension FavoritesListVC {
     
-    static func create()-> UINavigationController {
-        let favoriteVC = FavoritesListVC()
-        favoriteVC.title = "Favorites"
-        favoriteVC.tabBarItem = UITabBarItem(tabBarSystemItem: .favorites, tag: 1)
-        return UINavigationController(rootViewController: favoriteVC)
+    static func create()-> FavoritesListVC {
+        let vc = FavoritesListVC()
+        vc.title = "Favorites"
+        return vc
     }
 }
