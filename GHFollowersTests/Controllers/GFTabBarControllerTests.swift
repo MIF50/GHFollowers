@@ -29,10 +29,10 @@ class GFTabBarControllerTests: XCTestCase {
     }
     
     func test_viewDidLoad_searchTabBarItem() {
-        let tabBar = makeSUT().viewControllers?.first?.tabBarItem
+        let tab = tab(at: 0)
         
-        XCTAssertEqual(tabBar?.tag, 0,"tab bar tag")
-        XCTAssertEqual(tabBar?.image,tabBarSearchImage,"Tab bar item should have the 'search' system item type.")
+        XCTAssertEqual(tab.tagTabBar, searchTabBar.tag,"search tag")
+        XCTAssertEqual(tab.dataImageTabBar,searchTabBar.selectedImage?.pngData(),"Tab bar item should have the 'search' system item type.")
     }
     
     func test_viewDidLoad_secondFavoritesListViewController() {
@@ -70,8 +70,8 @@ class GFTabBarControllerTests: XCTestCase {
         return tab.topViewController!
     }
     
-    private var tabBarSearchImage: UIImage? {
-        UITabBarItem(tabBarSystemItem: .search, tag: 0).image
+    private var searchTabBar: UITabBarItem {
+        UITabBarItem(tabBarSystemItem: .search, tag: 0)
     }
     
     private var favoritesTabBar: UITabBarItem {
