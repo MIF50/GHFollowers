@@ -15,14 +15,9 @@ class GFTabBarControllerTests: XCTestCase {
     }
 
     func test_viewDidLoad_firstSearchViewController() {
-        let sut = makeSUT()
-                
-        guard let nav = sut.viewControllers?.first as? UINavigationController else {
-            XCTFail("First ViewController should be of type UINavigationController")
-            return
-        }
+        let tab = tab(at: 0)
         
-        guard let _ = nav.topViewController as? SearchVC else {
+        guard let _ = tab as? SearchVC else {
             XCTFail("Root view controller should be of type SearchVC")
             return
         }
@@ -36,14 +31,9 @@ class GFTabBarControllerTests: XCTestCase {
     }
     
     func test_viewDidLoad_secondFavoritesListViewController() {
-        let sut = makeSUT()
+        let tab = tab(at: 1)
         
-        guard let nav = sut.viewControllers?[1] as? UINavigationController else {
-            XCTFail("First ViewController should be of type 'UINavigationController'")
-            return
-        }
-        
-        guard let _ = nav.topViewController as? FavoritesListVC else {
+        guard let _ = tab as? FavoritesListVC else {
             XCTFail("Root view controller should be of type 'FavoritesListVC'")
             return
         }
