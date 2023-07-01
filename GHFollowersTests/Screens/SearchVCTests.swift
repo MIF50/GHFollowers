@@ -31,6 +31,11 @@ class SearchVCTests: XCTestCase {
         let sutSubViews = [sut.logoImageView,sut.userNameTextField,sut.getFollowersButton]
         XCTAssertEqual(sut.view.subviews, sutSubViews,"subviews")
     }
+    
+    func test_viewDidLoad_logoImageView_imageData() {
+        let sut = makeSUT()
+        XCTAssertEqual(sut.logoImageView.image?.pngData(), Images.ghLogo?.pngData(),"data logo image view")
+    }
 
     // MARK:- Helpers
     
