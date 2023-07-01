@@ -36,6 +36,12 @@ class SearchVCTests: XCTestCase {
         let sut = makeSUT()
         XCTAssertEqual(sut.logoImageView.image?.pngData(), Images.ghLogo?.pngData(),"data logo image view")
     }
+    
+    func test_viewDidLoad_userNameTextField_delegate() {
+        let sut = makeSUT()
+        
+        XCTAssertNotNil(sut.userNameTextField.delegate)
+    }
 
     // MARK:- Helpers
     
