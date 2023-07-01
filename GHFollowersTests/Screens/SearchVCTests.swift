@@ -25,6 +25,12 @@ class SearchVCTests: XCTestCase {
         
         XCTAssertEqual(sut.view.backgroundColor, .systemBackground,"view background color")
     }
+    
+    func test_viewDidLoad_subviews() {
+        let sut = makeSUT()
+        let sutSubViews = [sut.logoImageView,sut.userNameTextField,sut.getFollowersButton]
+        XCTAssertEqual(sut.view.subviews, sutSubViews,"subviews")
+    }
 
     // MARK:- Helpers
     
