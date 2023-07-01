@@ -49,6 +49,13 @@ class GFTabBarControllerTests: XCTestCase {
         }
     }
     
+    func test_viewDidLoad_favoriteTabBarItem() {
+        let tab = tab(at: 1)
+        
+        XCTAssertEqual(tab.tagTabBar, tabBarFavorites.tag,"tab bar tag")
+        XCTAssertEqual(tab.dataImageTabBar,tabBarFavorites.selectedImage?.pngData(),"Tab bar item should have the 'favorite' system item type.")
+    }
+    
     //MARK: - Helpers
     
     private func makeSUT() -> GFTabBarController {
@@ -57,8 +64,28 @@ class GFTabBarControllerTests: XCTestCase {
         return vc
     }
     
+    func tab(at index: Int) -> UIViewController {
+        let sut = makeSUT()
+        let tab = sut.viewControllers?[index] as! UINavigationController
+        return tab.topViewController!
+    }
+    
     private var tabBarSearchImage: UIImage? {
         UITabBarItem(tabBarSystemItem: .search, tag: 0).image
     }
+    
+    private var tabBarFavorites: UITabBarItem {
+        UITabBarItem(tabBarSystemItem: .favorites, tag: 1)
+    }
+}
 
+private extension UIViewController {
+    
+    var tagTabBar: Int {
+        tabBarItem.tag
+    }
+    
+    var dataImageTabBar: Data? {
+        tabBarItem.selectedImage?.pngData()
+    }
 }
