@@ -19,6 +19,12 @@ class SearchVCTests: XCTestCase {
                 
         XCTAssertEqual(nav.isNavigationBarHidden,true,"hide navigation bar")
     }
+    
+    func test_viewDidLoad_backgroundColor() {
+        let sut = makeSUT()
+        
+        XCTAssertEqual(sut.view.backgroundColor, .systemBackground,"view background color")
+    }
 
     // MARK:- Helpers
     
