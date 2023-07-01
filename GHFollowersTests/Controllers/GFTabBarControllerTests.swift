@@ -52,8 +52,8 @@ class GFTabBarControllerTests: XCTestCase {
     func test_viewDidLoad_favoriteTabBarItem() {
         let tab = tab(at: 1)
         
-        XCTAssertEqual(tab.tagTabBar, tabBarFavorites.tag,"tab bar tag")
-        XCTAssertEqual(tab.dataImageTabBar,tabBarFavorites.selectedImage?.pngData(),"Tab bar item should have the 'favorite' system item type.")
+        XCTAssertEqual(tab.tagTabBar, favoritesTabBar.tag,"favorites tag")
+        XCTAssertEqual(tab.dataImageTabBar,favoritesTabBar.selectedImage?.pngData(),"Tab bar item should have the 'favorite' system item type.")
     }
     
     //MARK: - Helpers
@@ -74,7 +74,7 @@ class GFTabBarControllerTests: XCTestCase {
         UITabBarItem(tabBarSystemItem: .search, tag: 0).image
     }
     
-    private var tabBarFavorites: UITabBarItem {
+    private var favoritesTabBar: UITabBarItem {
         UITabBarItem(tabBarSystemItem: .favorites, tag: 1)
     }
 }
