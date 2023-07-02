@@ -3,6 +3,7 @@
 //
 
 import XCTest
+import ViewControllerPresentationSpy
 @testable import GHFollowers
 
 class SearchVCTests: XCTestCase {
@@ -42,6 +43,24 @@ class SearchVCTests: XCTestCase {
         
         XCTAssertNotNil(sut.userNameTextField.delegate)
     }
+    
+    @MainActor
+    func test_tapGetFollowersWithEmptyUsername_showPrsentationAlert() {
+        let presentationVerifier = PresentationVerifier()
+        let sut = makeSUT()
+        sut.emptyUsername()
+        
+        sut.simulateTapOnFollowers()
+        
+        guard let alert = presentationVerifier.verify(animated: true,presentingViewController: sut) as? GFAlertVC else {
+            XCTFail("Expected to get 'GFAlertVC' as presentation controller")
+            return
+        }
+        
+        XCTAssertEqual(alert.alertTitle, "Empty Username")
+        XCTAssertEqual(alert.message, "Please enter a username. We need to know who to look for 😊.")
+        XCTAssertEqual(alert.buttonTitle, "OK")
+    }
 
     // MARK:- Helpers
     
@@ -49,5 +68,16 @@ class SearchVCTests: XCTestCase {
         let sut = SearchVC.create()
         sut.loadViewIfNeeded()
         return sut
+    }
+}
+
+private extension SearchVC {
+    
+    func simulateTapOnFollowers() {
+        getFollowersButton.simulate(event: .touchUpInside)
+    }
+    
+    func emptyUsername() {
+        userNameTextField.text = ""
     }
 }
