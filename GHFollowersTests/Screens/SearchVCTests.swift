@@ -61,6 +61,18 @@ class SearchVCTests: XCTestCase {
         XCTAssertEqual(alert.message, "Please enter a username. We need to know who to look for 😊.")
         XCTAssertEqual(alert.buttonTitle, "OK")
     }
+    
+    func test_tapGetFollowersWithNotEmptyUsername_resignResponderUsernameField() {
+        let sut = makeSUT()
+        putInViewHierarchy(sut)
+
+        sut.userNameTextField.becomeFirstResponder()
+        sut.notEmptyUsername()
+        XCTAssertEqual(sut.userNameTextField.isFirstResponder, true,"precondition")
+        
+        sut.simulateTapOnFollowers()
+        XCTAssertEqual(sut.userNameTextField.isFirstResponder, false)
+    }
 
     // MARK:- Helpers
     
@@ -79,5 +91,9 @@ private extension SearchVC {
     
     func emptyUsername() {
         userNameTextField.text = ""
+    }
+    
+    func notEmptyUsername(_ value: String = "any username") {
+        userNameTextField.text = value
     }
 }
