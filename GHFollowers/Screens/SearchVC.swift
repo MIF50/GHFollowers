@@ -81,23 +81,25 @@ class SearchVC: UIViewController {
     // MARK:- Actions
     @objc func pushFollowerListVC() {
         if !isUserNameEntered {
-//            presentGFAlertOnMainThread(
-//                title: "Empty Username",
-//                message: "Please enter a username. We need to know who to look for 😊.",
-//                buttonTitle: "OK"
-//            )
-            
-            let alertVC = GFAlertVC(title: "Empty Username", message: "Please enter a username. We need to know who to look for 😊.", buttonTitle: "OK")
-            alertVC.modalPresentationStyle = .overFullScreen
-            alertVC.modalTransitionStyle = .crossDissolve
-            self.present(alertVC, animated: true)
+            showAlertDialog(
+                title: "Empty Username",
+                message: "Please enter a username. We need to know who to look for 😊.",
+                buttonTitle: "OK"
+            )
             return
         }
         
         userNameTextField.resignFirstResponder()
         
         let followerListVC = FollowerListVC(userName: userNameTextField.unwrappedText)
-        navigationController?.pushViewController(followerListVC, animated: true)
+        navigationController?.pushViewController(followerListVC, animated: false)
+    }
+    
+    private func showAlertDialog(title: String,message: String,buttonTitle: String) {
+        let alertVC = GFAlertVC(title: "Empty Username", message: "Please enter a username. We need to know who to look for 😊.", buttonTitle: "OK")
+        alertVC.modalPresentationStyle = .overFullScreen
+        alertVC.modalTransitionStyle = .crossDissolve
+        self.present(alertVC, animated: true)
     }
 }
 

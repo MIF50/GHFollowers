@@ -57,6 +57,7 @@
 		B57DE0862529F2490048F8E8 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57DE0852529F2490048F8E8 /* NetworkManager.swift */; };
 		B57DE0892529F2770048F8E8 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57DE0882529F2770048F8E8 /* User.swift */; };
 		B57DE08C2529F2A10048F8E8 /* Follower.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57DE08B2529F2A10048F8E8 /* Follower.swift */; };
+		B59C817F2A612DA100013F4D /* UITextField+XCTestCaseHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = B59C817E2A612DA100013F4D /* UITextField+XCTestCaseHelpers.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -123,6 +124,7 @@
 		B57DE0852529F2490048F8E8 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		B57DE0882529F2770048F8E8 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		B57DE08B2529F2A10048F8E8 /* Follower.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Follower.swift; sourceTree = "<group>"; };
+		B59C817E2A612DA100013F4D /* UITextField+XCTestCaseHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+XCTestCaseHelpers.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -173,6 +175,7 @@
 			children = (
 				B520D3792A514C5B0073AC50 /* UIControllers+TestHelpers.swift */,
 				B520D37B2A515ED10073AC50 /* SharedTestHelpers.swift */,
+				B59C817E2A612DA100013F4D /* UITextField+XCTestCaseHelpers.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -485,6 +488,7 @@
 				B520D37A2A514C5B0073AC50 /* UIControllers+TestHelpers.swift in Sources */,
 				B520D37C2A515ED10073AC50 /* SharedTestHelpers.swift in Sources */,
 				63142D953C342643E2297760 /* SearchVCTests.swift in Sources */,
+				B59C817F2A612DA100013F4D /* UITextField+XCTestCaseHelpers.swift in Sources */,
 				63142342764183DE45D9F0E5 /* GFTabBarControllerTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

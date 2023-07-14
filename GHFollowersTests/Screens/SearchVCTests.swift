@@ -7,6 +7,12 @@ import ViewControllerPresentationSpy
 @testable import GHFollowers
 
 class SearchVCTests: XCTestCase {
+    
+    override func tearDown() {
+        super.tearDown()
+        
+        executeRunLoop()
+    }
 
     func test_init_hasTitle() {
         XCTAssertNotNil(makeSUT().title,"Search")
@@ -45,10 +51,9 @@ class SearchVCTests: XCTestCase {
     }
     
     @MainActor
-    func test_tapGetFollowersWithEmptyUsername_showPrsentationAlert() {
+    func test_tapGetFollowers_withEmptyUsername_showPrsentationAlert() {
         let presentationVerifier = PresentationVerifier()
         let sut = makeSUT()
-        sut.emptyUsername()
         
         sut.simulateTapOnFollowers()
         
@@ -62,38 +67,171 @@ class SearchVCTests: XCTestCase {
         XCTAssertEqual(alert.buttonTitle, "OK")
     }
     
-    func test_tapGetFollowersWithNotEmptyUsername_resignResponderUsernameField() {
+    func test_tapGetFollowers_withEmptyUsername_shouldNotResignResponderUsernameField() {
         let sut = makeSUT()
         putInViewHierarchy(sut)
 
-        sut.userNameTextField.becomeFirstResponder()
-        sut.notEmptyUsername()
-        XCTAssertEqual(sut.userNameTextField.isFirstResponder, true,"precondition")
+        sut.simulateUsernameFirstResponder()
+        XCTAssertEqual(sut.usernameIsFirstReponder, true,"precondition")
+
+        sut.simulateTapOnFollowers()
+        XCTAssertEqual(sut.usernameIsFirstReponder, true)
+    }
+    
+    func test_tapGetFollowers_withEmptyUsername_shouldNotPushFollowerList() {
+        let sut = makeSUT()
+        _ = SpyNavigationController(rootViewController: sut)
+
+        sut.simulateTapOnFollowers()
+        
+        XCTAssertEqual(sut.navigationStackCount, 1,"navigation stack")
+    }
+    
+    func test_shouldReturn_withEmptyUsername_shouldNotResignResponderUsernameField() {
+        let sut = makeSUT()
+        putInViewHierarchy(sut)
+
+        sut.simulateUsernameFirstResponder()
+        XCTAssertEqual(sut.usernameIsFirstReponder, true,"precondition")
+
+        sut.simulateShouldReturnUsernameTextField()
+        XCTAssertEqual(sut.usernameIsFirstReponder, true)
+    }
+    
+    func test_shouldRetrun_withEmptyUsername_shouldNotPushFollowerList() {
+        let sut = makeSUT()
+        _ = SpyNavigationController(rootViewController: sut)
+
+        sut.simulateShouldReturnUsernameTextField()
+        
+        XCTAssertEqual(sut.navigationStackCount, 1,"navigation stack")
+    }
+    
+    func test_tapGetFollowers_withNotEmptyUsername_resignResponderUsernameField() {
+        let sut = makeSUT(username: "any username")
+        putInViewHierarchy(sut)
+
+        sut.simulateUsernameFirstResponder()
+        XCTAssertEqual(sut.usernameIsFirstReponder, true,"precondition")
         
         sut.simulateTapOnFollowers()
-        XCTAssertEqual(sut.userNameTextField.isFirstResponder, false)
+        XCTAssertEqual(sut.usernameIsFirstReponder, false)
+    }
+    
+    func test_tappingGetFollowers_withNotEmptyUsername_shouldPushFollowerList() {
+        let expectedUsername = "mohamed"
+        let sut = makeSUT(username: expectedUsername)
+        let navSpy = SpyNavigationController(rootViewController: sut)
+        
+        XCTAssertNotNil(sut.navigationController)
+        
+        sut.simulateTapOnFollowers()
+        
+        XCTAssertEqual(navSpy.pushViewControllerArgsAnimated.last, false)
+        XCTAssertEqual(sut.navigationStackCount, 2,"navigation stack")
+        
+        let pushedVC = sut.lastViewController
+        guard let follwerListVC = pushedVC as? FollowerListVC else {
+            XCTFail("Expected FollowerListVC, but was \(String(describing: pushedVC))")
+            return
+        }
+        
+        XCTAssertEqual(follwerListVC.userName, expectedUsername)
+    }
+    
+    @MainActor
+    func test_shouldReturnTextField_withEmptyUsername_showPrsentationAlert() {
+        let presentationVerifier = PresentationVerifier()
+        let sut = makeSUT()
+        
+        sut.simulateShouldReturnUsernameTextField()
+        
+        guard let alert = presentationVerifier.verify(animated: true,presentingViewController: sut) as? GFAlertVC else {
+            XCTFail("Expected to get 'GFAlertVC' as presentation controller")
+            return
+        }
+        
+        XCTAssertEqual(alert.alertTitle, "Empty Username")
+        XCTAssertEqual(alert.message, "Please enter a username. We need to know who to look for 😊.")
+        XCTAssertEqual(alert.buttonTitle, "OK")
+    }
+    
+    func test_shouldReturnTextField_withNotEmptyUsername_resignResponderUsernameField() {
+        let sut = makeSUT(username: "any username")
+        putInViewHierarchy(sut)
+
+        sut.simulateUsernameFirstResponder()
+        XCTAssertEqual(sut.usernameIsFirstReponder, true,"precondition")
+
+        sut.simulateShouldReturnUsernameTextField()
+        XCTAssertEqual(sut.usernameIsFirstReponder, false)
+    }
+
+    func test_shouldReturnTextField_withNotEmptyUsername_shouldPushFollowerList() {
+        let expectedUsername = "mohamed"
+        let sut = makeSUT(username: expectedUsername)
+        let navSpy = SpyNavigationController(rootViewController: sut)
+
+        XCTAssertNotNil(sut.navigationController)
+
+        sut.simulateShouldReturnUsernameTextField()
+
+        XCTAssertEqual(navSpy.pushViewControllerArgsAnimated.last, false)
+        XCTAssertEqual(sut.navigationStackCount, 2,"navigation stack")
+
+        let pushedVC = sut.lastViewController
+        guard let follwerListVC = pushedVC as? FollowerListVC else {
+            XCTFail("Expected FollowerListVC, but was \(String(describing: pushedVC))")
+            return
+        }
+
+        XCTAssertEqual(follwerListVC.userName, expectedUsername)
     }
 
     // MARK:- Helpers
     
-    private func makeSUT() -> SearchVC {
+    private func makeSUT(username: String = "") -> SearchVC {
         let sut = SearchVC.create()
+        sut.userNameTextField.text = username
         sut.loadViewIfNeeded()
         return sut
+    }
+    
+    class SpyNavigationController: UINavigationController {
+        
+        private(set) var pushViewControllerArgsAnimated: [Bool] = []
+        
+        override func pushViewController(_ viewController: UIViewController, animated: Bool) {
+            super.pushViewController(viewController, animated: animated)
+            pushViewControllerArgsAnimated.append(animated)
+        }
+        
     }
 }
 
 private extension SearchVC {
     
+    var usernameIsFirstReponder: Bool {
+        userNameTextField.isFirstResponder
+    }
+    
+    func simulateUsernameFirstResponder() {
+        userNameTextField.becomeFirstResponder()
+    }
+    
+    func simulateShouldReturnUsernameTextField() {
+        shouldReturn(userNameTextField)
+    }
+    
     func simulateTapOnFollowers() {
         getFollowersButton.simulate(event: .touchUpInside)
     }
     
-    func emptyUsername() {
-        userNameTextField.text = ""
+    var navigationStackCount: Int? {
+        navigationController?.viewControllers.count
     }
     
-    func notEmptyUsername(_ value: String = "any username") {
-        userNameTextField.text = value
+    var lastViewController: UIViewController? {
+        navigationController?.viewControllers.last
     }
 }
