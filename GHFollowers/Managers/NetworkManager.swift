@@ -7,8 +7,9 @@
 
 import UIKit
 
-class NetworkManager {
-    static let shared = NetworkManager()
+class FollowerLoader {
+    
+    static let shared = FollowerLoader()
     
     private let baseUrl = "https://api.github.com/users/"
     
@@ -16,7 +17,7 @@ class NetworkManager {
     
     private init() {}
     
-    func getFollowers(for username: String, page: Int, completed: @escaping(Result<[Follower], GFError>) -> Void) {
+    func loadFollowers(for username: String, page: Int, completed: @escaping(Result<[Follower], GFError>) -> Void) {
         let endpoint = baseUrl + "\(username)/followers?per_page=100&page=\(page)"
         
         guard let  url = URL(string: endpoint) else {
@@ -76,6 +77,16 @@ class NetworkManager {
         task.resume()
         
     }
+}
+
+class NetworkManager {
+    static let shared = NetworkManager()
+    
+    private let baseUrl = "https://api.github.com/users/"
+    
+    let cache = NSCache<NSString, UIImage>()
+    
+    private init() {}
     
     func getUserInfo(for username: String, completed: @escaping(Result<User, GFError>) -> Void) {
         let endpoint = baseUrl + "\(username)"
