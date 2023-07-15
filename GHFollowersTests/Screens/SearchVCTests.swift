@@ -122,21 +122,10 @@ class SearchVCTests: XCTestCase {
         let expectedUsername = "mohamed"
         let sut = makeSUT(username: expectedUsername)
         let navSpy = SpyNavigationController(rootViewController: sut)
-        
-        XCTAssertNotNil(sut.navigationController)
-        
+                
         sut.simulateTapOnFollowers()
         
-        XCTAssertEqual(navSpy.pushViewControllerArgsAnimated.last, false)
-        XCTAssertEqual(sut.navigationStackCount, 2,"navigation stack")
-        
-        let pushedVC = sut.lastViewController
-        guard let follwerListVC = pushedVC as? FollowerListVC else {
-            XCTFail("Expected FollowerListVC, but was \(String(describing: pushedVC))")
-            return
-        }
-        
-        XCTAssertEqual(follwerListVC.userName, expectedUsername)
+        assertPushFollower(sut, in: navSpy, with: expectedUsername)
     }
     
     @MainActor
@@ -172,20 +161,9 @@ class SearchVCTests: XCTestCase {
         let sut = makeSUT(username: expectedUsername)
         let navSpy = SpyNavigationController(rootViewController: sut)
 
-        XCTAssertNotNil(sut.navigationController)
-
         sut.simulateShouldReturnUsernameTextField()
-
-        XCTAssertEqual(navSpy.pushViewControllerArgsAnimated.last, false)
-        XCTAssertEqual(sut.navigationStackCount, 2,"navigation stack")
-
-        let pushedVC = sut.lastViewController
-        guard let follwerListVC = pushedVC as? FollowerListVC else {
-            XCTFail("Expected FollowerListVC, but was \(String(describing: pushedVC))")
-            return
-        }
-
-        XCTAssertEqual(follwerListVC.userName, expectedUsername)
+        
+        assertPushFollower(sut, in: navSpy, with: expectedUsername)
     }
 
     // MARK:- Helpers
@@ -195,6 +173,28 @@ class SearchVCTests: XCTestCase {
         sut.userNameTextField.text = username
         sut.loadViewIfNeeded()
         return sut
+    }
+    
+    func assertPushFollower(
+        _ sut: SearchVC,
+        in nav: SpyNavigationController,
+        with expectedUsername: String,
+        file: StaticString = #filePath,
+        line: UInt = #line
+    ) {
+        XCTAssertNotNil(sut.navigationController,file: file,line: line)
+
+
+        XCTAssertEqual(nav.pushViewControllerArgsAnimated.last, false,file: file,line: line)
+        XCTAssertEqual(sut.navigationStackCount, 2,"navigation stack",file: file,line: line)
+
+        let pushedVC = sut.lastViewController
+        guard let follwerListVC = pushedVC as? FollowerListVC else {
+            XCTFail("Expected FollowerListVC, but was \(String(describing: pushedVC))",file: file,line: line)
+            return
+        }
+        
+        XCTAssertEqual(follwerListVC.userName, expectedUsername,file: file,line: line)
     }
     
     class SpyNavigationController: UINavigationController {

@@ -79,6 +79,7 @@ class SearchVC: UIViewController {
     }
     
     // MARK:- Actions
+    
     @objc func pushFollowerListVC() {
         if !isUserNameEntered {
             showAlertDialog(
