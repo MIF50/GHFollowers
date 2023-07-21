@@ -26,8 +26,13 @@
       buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
-      shouldUseLaunchSchemeArgsEnv = "YES"
-      shouldAutocreateTestPlan = "YES">
+      shouldUseLaunchSchemeArgsEnv = "YES">
+      <TestPlans>
+         <TestPlanReference
+            reference = "container:GHFollowers.xctestplan"
+            default = "YES">
+         </TestPlanReference>
+      </TestPlans>
       <Testables>
          <TestableReference
             skipped = "NO"
@@ -39,6 +44,74 @@
                BlueprintName = "GHFollowersTests"
                ReferencedContainer = "container:GHFollowers.xcodeproj">
             </BuildableReference>
+            <SelectedTests>
+               <Test
+                  Identifier = "FollowerListVCTests/test_viewDidLoad_shouldMakeDataTaskToSearchForMIF50()">
+               </Test>
+               <Test
+                  Identifier = "GFTabBarControllerTests/test_viewDidLoad_favoriteTabBarItem()">
+               </Test>
+               <Test
+                  Identifier = "GFTabBarControllerTests/test_viewDidLoad_firstSearchViewController()">
+               </Test>
+               <Test
+                  Identifier = "GFTabBarControllerTests/test_viewDidLoad_searchTabBarItem()">
+               </Test>
+               <Test
+                  Identifier = "GFTabBarControllerTests/test_viewDidLoad_secondFavoritesListViewController()">
+               </Test>
+               <Test
+                  Identifier = "GFTabBarControllerTests/test_viewDidLoad_tintColor()">
+               </Test>
+               <Test
+                  Identifier = "SearchVCTests/test_init_hasTitle()">
+               </Test>
+               <Test
+                  Identifier = "SearchVCTests/test_shouldRetrun_withEmptyUsername_shouldNotPushFollowerList()">
+               </Test>
+               <Test
+                  Identifier = "SearchVCTests/test_shouldReturnTextField_withEmptyUsername_showPrsentationAlert()">
+               </Test>
+               <Test
+                  Identifier = "SearchVCTests/test_shouldReturnTextField_withNotEmptyUsername_resignResponderUsernameField()">
+               </Test>
+               <Test
+                  Identifier = "SearchVCTests/test_shouldReturnTextField_withNotEmptyUsername_shouldPushFollowerList()">
+               </Test>
+               <Test
+                  Identifier = "SearchVCTests/test_shouldReturn_withEmptyUsername_shouldNotResignResponderUsernameField()">
+               </Test>
+               <Test
+                  Identifier = "SearchVCTests/test_tapGetFollowers_withEmptyUsername_shouldNotPushFollowerList()">
+               </Test>
+               <Test
+                  Identifier = "SearchVCTests/test_tapGetFollowers_withEmptyUsername_shouldNotResignResponderUsernameField()">
+               </Test>
+               <Test
+                  Identifier = "SearchVCTests/test_tapGetFollowers_withEmptyUsername_showPrsentationAlert()">
+               </Test>
+               <Test
+                  Identifier = "SearchVCTests/test_tapGetFollowers_withNotEmptyUsername_resignResponderUsernameField()">
+               </Test>
+               <Test
+                  Identifier = "SearchVCTests/test_tappingGetFollowers_withNotEmptyUsername_shouldPushFollowerList()">
+               </Test>
+               <Test
+                  Identifier = "SearchVCTests/test_viewDidLoad_backgroundColor()">
+               </Test>
+               <Test
+                  Identifier = "SearchVCTests/test_viewDidLoad_logoImageView_imageData()">
+               </Test>
+               <Test
+                  Identifier = "SearchVCTests/test_viewDidLoad_subviews()">
+               </Test>
+               <Test
+                  Identifier = "SearchVCTests/test_viewDidLoad_userNameTextField_delegate()">
+               </Test>
+               <Test
+                  Identifier = "SearchVCTests/test_viewWillAppear_hideNavigationBar()">
+               </Test>
+            </SelectedTests>
          </TestableReference>
       </Testables>
    </TestAction>
