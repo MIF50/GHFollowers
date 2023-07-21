@@ -28,6 +28,8 @@ class FollowerListVC: GFDataLoadingVC {
     fileprivate var isSearching = false
     fileprivate var isLoadingMoreFollowers = false
     
+    var loader: FollowerLoader = FollowerLoader()
+    
     init(userName: String) {
         super.init(nibName: nil, bundle: nil)
         self.userName = userName
@@ -82,18 +84,19 @@ class FollowerListVC: GFDataLoadingVC {
         showLoadingView()
         isLoadingMoreFollowers = true
         
-        FollowerLoader.shared.loadFollowers(for: userName, page: page) { [weak self] result in
+        
+        loader.loadFollowers(for: userName, page: page) { [weak self] result in
             guard let self = self else { return }
-            
+
             self.dismissLoadingView()
-            
+
             switch result {
             case .success(let followers):
                 self.updateUI(with: followers)
             case .failure(let error):
                 self.presentGFAlertOnMainThread(title: "Bad Stuff Happened", message: error.rawValue, buttonTitle: "OK")
             }
-            
+
             self.isLoadingMoreFollowers = false
         }
     }
