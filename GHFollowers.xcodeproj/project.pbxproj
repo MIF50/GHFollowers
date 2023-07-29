@@ -12,6 +12,7 @@
 		63142E46F230A40878444D7C /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6314270D646BE59E93334B52 /* main.swift */; };
 		63142F865A902552987115D4 /* TestingAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63142D9FF10424ADA8F01116 /* TestingAppDelegate.swift */; };
 		B50EBF662A75A8F0000C0AFD /* HTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = B50EBF652A75A8F0000C0AFD /* HTTPClient.swift */; };
+		B50EBF682A75A96F000C0AFD /* URLSessionHTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = B50EBF672A75A96F000C0AFD /* URLSessionHTTPClient.swift */; };
 		B520D3762A514B190073AC50 /* ViewControllerPresentationSpy.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = B520D3752A514B190073AC50 /* ViewControllerPresentationSpy.xcframework */; };
 		B520D3772A514B320073AC50 /* ViewControllerPresentationSpy.xcframework in Resources */ = {isa = PBXBuildFile; fileRef = B520D3752A514B190073AC50 /* ViewControllerPresentationSpy.xcframework */; };
 		B520D37A2A514C5B0073AC50 /* UIControllers+TestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = B520D3792A514C5B0073AC50 /* UIControllers+TestHelpers.swift */; };
@@ -79,6 +80,7 @@
 		6314270D646BE59E93334B52 /* main.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		63142D9FF10424ADA8F01116 /* TestingAppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestingAppDelegate.swift; sourceTree = "<group>"; };
 		B50EBF652A75A8F0000C0AFD /* HTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClient.swift; sourceTree = "<group>"; };
+		B50EBF672A75A96F000C0AFD /* URLSessionHTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionHTTPClient.swift; sourceTree = "<group>"; };
 		B520D3752A514B190073AC50 /* ViewControllerPresentationSpy.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = ViewControllerPresentationSpy.xcframework; sourceTree = "<group>"; };
 		B520D3792A514C5B0073AC50 /* UIControllers+TestHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIControllers+TestHelpers.swift"; sourceTree = "<group>"; };
 		B520D37B2A515ED10073AC50 /* SharedTestHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedTestHelpers.swift; sourceTree = "<group>"; };
@@ -182,6 +184,7 @@
 			isa = PBXGroup;
 			children = (
 				B50EBF652A75A8F0000C0AFD /* HTTPClient.swift */,
+				B50EBF672A75A96F000C0AFD /* URLSessionHTTPClient.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -567,6 +570,7 @@
 				B57DE0802529F1D90048F8E8 /* GFError.swift in Sources */,
 				B563F39325332B970017A68A /* GFFollowerItemVC.swift in Sources */,
 				63142E46F230A40878444D7C /* main.swift in Sources */,
+				B50EBF682A75A96F000C0AFD /* URLSessionHTTPClient.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
