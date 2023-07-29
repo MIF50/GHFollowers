@@ -19,7 +19,13 @@ class FollowerListVC: GFDataLoadingVC {
         title = username
     }
     
-    fileprivate var followers: [Follower] = []
+    var handleResult: (([Follower]) -> Void ) = { print($0) }
+
+    private(set) var followers: [Follower] = [] {
+        didSet {
+            handleResult(followers)
+        }
+    }
     fileprivate var filteredFollowers: [Follower] = []
     fileprivate var collectionView: UICollectionView!
     fileprivate var dataSource: UICollectionViewDiffableDataSource<Section,Follower>!
@@ -92,30 +98,46 @@ class FollowerListVC: GFDataLoadingVC {
 
             switch result {
             case .success(let followers):
-                self.updateUI(with: followers)
+                DispatchQueue.main.async { [weak self,followers] in
+                    self?.updateUI(with: followers)
+                }
             case .failure(let error):
-                self.presentGFAlertOnMainThread(title: "Bad Stuff Happened", message: error.rawValue, buttonTitle: "OK")
+                DispatchQueue.main.async { [weak self] in
+                    self?.showAlert(title: "Bad Stuff Happened", message: error.rawValue, buttonTitle: "OK")
+                }
             }
 
             self.isLoadingMoreFollowers = false
         }
     }
     
+    private func showAlert(title: String, message: String, buttonTitle: String) {
+        let alertVC = GFAlertVC(title: title, message: message, buttonTitle: buttonTitle)
+        alertVC.modalPresentationStyle = .overFullScreen
+        alertVC.modalTransitionStyle = .crossDissolve
+        self.present(alertVC, animated: true)
+    }
+    
     func updateUI(with followers: [Follower]) {
         if followers.count < 100 { self.hasMoreFollowers = false }
-        
+
         self.followers.append(contentsOf: followers)
+
         
         if self.followers.isEmpty {
             let message = "This user does not have any followes. Go follow them."
-            
-            DispatchQueue.main.async {
-                self.showEmptyStateView(with: message, in: self.view)
-                return
-            }
+            self.showEmptyStateView(with: message, in: self.view)
+            return
         }
         
         self.updateData(on: self.followers)
+    }
+    
+    func updateData(on followers: [Follower]){
+        var snapshot = NSDiffableDataSourceSnapshot<Section,Follower>()
+        snapshot.appendSections([.main])
+        snapshot.appendItems(followers)
+        self.dataSource.apply(snapshot,animatingDifferences: true)
     }
     
     func configureDataSource(){
@@ -130,18 +152,6 @@ class FollowerListVC: GFDataLoadingVC {
                 return cell
             })
     }
-    
-    func updateData(on followers: [Follower]){
-        var snapshot = NSDiffableDataSourceSnapshot<Section,Follower>()
-        snapshot.appendSections([.main])
-        snapshot.appendItems(followers)
-        
-        DispatchQueue.main.async {
-            self.dataSource.apply(snapshot,animatingDifferences: true)
-        }
-    }
-    
-    
     
     @objc func addButtonTapped(){
         showLoadingView()

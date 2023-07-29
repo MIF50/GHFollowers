@@ -6,38 +6,119 @@
 //
 
 import XCTest
+import ViewControllerPresentationSpy
 @testable import GHFollowers
 
 final class FollowerListVCTests: XCTestCase {
     
     func test_viewDidLoad_shouldMakeDataTaskToSearchForMIF50() {
         let username = "MIF50"
-        let (sut,mockedSession) = makeSUT(username: username)
+        let (sut,session) = makeSUT(username: username)
         
         sut.loadViewIfNeeded()
         
-        mockedSession.verifyDataTask(with: URL(string: "https://api.github.com/users/MIF50/followers?per_page=100&page=1")!)
+        XCTAssertEqual(session.dataTaskCallCount, 1,"called once")
+        XCTAssertEqual(session.dataTaskArgsUrl.last, URL(string: "https://api.github.com/users/MIF50/followers?per_page=100&page=1")!)
+    }
+    
+    func test_getFollowers_withSuccessResponseShouldSaveDataInResult() {
+        
+        let (sut,session) = makeSUT()
+        sut.loadViewIfNeeded()
+
+        let exp = expectation(description: "wait for completion")
+        sut.handleResult = { _ in
+            exp.fulfill()
+        }
+        session.dataTaskArgsCompletionHandler.first?(jsonData(),response(statusCode: 200),nil)
+        wait(for: [exp], timeout: 1.0)
+
+        XCTAssertEqual(sut.followers, [.init(login: "login-1", avatarUrl: "https://image-1.com")])
+    }
+    
+    func test_getFollowers_withSuccessResponseBeforeAsyncShouldNotSaveDataInResult() {
+        let (sut,session) = makeSUT()
+        sut.loadViewIfNeeded()
+
+        session.dataTaskArgsCompletionHandler.first?(jsonData(),response(statusCode: 200),nil)
+
+        XCTAssertEqual(sut.followers, [])
+    }
+    
+    @MainActor
+    func test_getFollowers_withErrorShouldShowAlert() {
+        let presentationVerifier = PresentationVerifier()
+        let (sut,session) = makeSUT()
+        sut.loadViewIfNeeded()
+        
+        let exp = expectation(description: "wait for completion")
+        presentationVerifier.testCompletion  = {
+            exp.fulfill()
+        }
+
+        let error = NSError(domain: "any error", code: 0)
+        session.dataTaskArgsCompletionHandler.first?(nil,nil,error)
+        wait(for: [exp], timeout: 1.0)
+
+        guard let alert = presentationVerifier.verify(animated: true,presentingViewController: sut) as? GFAlertVC else {
+            XCTFail("Expected to get 'GFAlertVC' as presentation controller")
+            return
+        }
+        
+        XCTAssertEqual(alert.alertTitle, "Bad Stuff Happened")
+        XCTAssertEqual(alert.message, GFError.unableToComplete.rawValue)
+        XCTAssertEqual(alert.buttonTitle, "OK")
+    }
+    
+    @MainActor
+    func test_getFollowers_withErrorBeforeAsyncShouldNotShowAlert() {
+        let presentationVerifier = PresentationVerifier()
+        let (sut,session) = makeSUT()
+        sut.loadViewIfNeeded()
+        
+        let error = NSError(domain: "any error", code: 0)
+        session.dataTaskArgsCompletionHandler.first?(nil,nil,error)
+        
+        XCTAssertEqual(presentationVerifier.presentedCount, 0)
     }
     
     //MARK: - Helpers
     
     private func makeSUT(
-        username: String = "any username"
-    ) -> (sut: FollowerListVC,mockedSession: MockURLSession) {
-        let mockedSession = MockURLSession()
+        username: String = "anyUsername"
+    ) -> (sut: FollowerListVC,session: URLSessionSpy) {
         let sut = FollowerListVC(userName: username)
-        sut.loader = FollowerLoaderSpy(session: mockedSession)
-        return (sut, mockedSession)
+        let session = URLSessionSpy()
+        sut.loader = FollowerLoaderSpy(session: session)
+        return (sut, session)
     }
     
     private class FollowerLoaderSpy: FollowerLoader {}
     
+    private func jsonData() -> Data {
+        """
+            [
+                {
+                    "login": "login-1",
+                    "avatar_url": "https://image-1.com"
+                }
+            ]
+        """.data(using: .utf8)!
+    }
+
+    
+    
+    private func response(statusCode: Int) -> HTTPURLResponse {
+        HTTPURLResponse(url: URL(string: "https://dummy.com")!, statusCode: statusCode, httpVersion: nil, headerFields: nil)!
+    }
+    
 }
 
-class MockURLSession: URLSessionProtocol {
+class URLSessionSpy: URLSessionProtocol {
     
     var dataTaskCallCount = 0
     var dataTaskArgsUrl = [URL]()
+    var dataTaskArgsCompletionHandler: [((Data?, URLResponse?, Error?) -> Void)] = []
     
     func dataTask(
         with url: URL,
@@ -45,52 +126,8 @@ class MockURLSession: URLSessionProtocol {
     ) -> URLSessionDataTask {
         dataTaskCallCount += 1
         dataTaskArgsUrl.append(url)
+        dataTaskArgsCompletionHandler.append(completionHandler)
         return FakeURLSessionDataTask()
-    }
-    
-    func verifyDataTask(
-        with url: URL,
-        file: StaticString = #filePath,
-        line: UInt = #line
-    ) {
-        guard dataTaskWasCalledOnce(file: file,line: line) else { return }
-        
-        XCTAssertEqual(dataTaskCallCount,1, "call count",file: file,line: line)
-        XCTAssertEqual(dataTaskArgsUrl.first,url, "url",file: file,line: line)
-    }
-    
-    private func dataTaskWasCalledOnce(
-        file: StaticString = #filePath,
-        line: UInt = #line
-    ) -> Bool {
-        verifyMethodCalledOnce(
-            methodName: "dataTask(with:completionHandler:)",
-            callCount: dataTaskCallCount,
-            describeArguments: "url: \(dataTaskArgsUrl)",
-            file: file,
-            line: line
-        )
-    }
-    
-    
-    func verifyMethodCalledOnce(
-        methodName: String,
-        callCount: Int,
-        describeArguments: @autoclosure () -> String,
-        file: StaticString = #filePath,
-        line: UInt = #line
-    ) -> Bool {
-        if callCount == 0 {
-            XCTFail("Wanted but not invoked: \(methodName)",file: file, line: line)
-            return false
-        }
-        
-        if callCount > 1 {
-            XCTFail("Wanted 1 time but was called \(callCount) times. " + "\(methodName) with \(describeArguments())",file: file, line: line)
-            return false
-        }
-        
-        return true
     }
     
     private class FakeURLSessionDataTask: URLSessionDataTask {

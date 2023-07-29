@@ -30,7 +30,6 @@ class FollowerLoader {
         let endpoint = baseUrl + "\(username)/followers?per_page=100&page=\(page)"
         
         guard let  url = URL(string: endpoint) else {
-        
             completed(.failure(.invalidUserName))
             return
         }
@@ -42,11 +41,11 @@ class FollowerLoader {
                 return
             }
             
-            // Check if repsonse is nil and status code is not success (200)
             guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
                 completed(.failure(.invalidResponse))
                 return
             }
+            
             
             guard let data = data else {
                 completed(.failure(.invalidData))
