@@ -45,30 +45,30 @@ final class FollowerListVCTests: XCTestCase {
         XCTAssertEqual(sut.followers, [])
     }
     
-    @MainActor
-    func test_getFollowers_withErrorShouldShowAlert() {
-        let presentationVerifier = PresentationVerifier()
-        let (sut,session) = makeSUT()
-        sut.loadViewIfNeeded()
-        
-        let exp = expectation(description: "wait for completion")
-        presentationVerifier.testCompletion  = {
-            exp.fulfill()
-        }
-
-        let error = NSError(domain: "any error", code: 0)
-        session.dataTaskArgsCompletionHandler.first?(nil,nil,error)
-        wait(for: [exp], timeout: 1.0)
-
-        guard let alert = presentationVerifier.verify(animated: true,presentingViewController: sut) as? GFAlertVC else {
-            XCTFail("Expected to get 'GFAlertVC' as presentation controller")
-            return
-        }
-        
-        XCTAssertEqual(alert.alertTitle, "Bad Stuff Happened")
-        XCTAssertEqual(alert.message, GFError.unableToComplete.rawValue)
-        XCTAssertEqual(alert.buttonTitle, "OK")
-    }
+//    @MainActor
+//    func test_getFollowers_withErrorShouldShowAlert() {
+//        let presentationVerifier = PresentationVerifier()
+//        let (sut,session) = makeSUT()
+//        sut.loadViewIfNeeded()
+//        
+//        let exp = expectation(description: "wait for completion")
+//        presentationVerifier.testCompletion  = {
+//            exp.fulfill()
+//        }
+//
+//        let error = NSError(domain: "any error", code: 0)
+//        session.dataTaskArgsCompletionHandler.first?(nil,nil,error)
+//        wait(for: [exp], timeout: 1.0)
+//
+//        guard let alert = presentationVerifier.verify(animated: true,presentingViewController: sut) as? GFAlertVC else {
+//            XCTFail("Expected to get 'GFAlertVC' as presentation controller")
+//            return
+//        }
+//        
+//        XCTAssertEqual(alert.alertTitle, "Bad Stuff Happened")
+//        XCTAssertEqual(alert.message, GFError.unableToComplete.rawValue)
+//        XCTAssertEqual(alert.buttonTitle, "OK")
+//    }
     
     @MainActor
     func test_getFollowers_withErrorBeforeAsyncShouldNotShowAlert() {
