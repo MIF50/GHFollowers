@@ -136,7 +136,6 @@
 		B57DE08B2529F2A10048F8E8 /* Follower.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Follower.swift; sourceTree = "<group>"; };
 		B59C817E2A612DA100013F4D /* UITextField+XCTestCaseHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+XCTestCaseHelpers.swift"; sourceTree = "<group>"; };
 		B5D533B52A6AD0C00015F8D4 /* FollowerLoaderManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowerLoaderManager.swift; sourceTree = "<group>"; };
-		B5D533B72A6AD26D0015F8D4 /* GHFollowers.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = GHFollowers.xctestplan; sourceTree = "<group>"; };
 		B5F4C08D2A7B162B00BFE637 /* XCTestCase+MemoryLeakTracking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+MemoryLeakTracking.swift"; sourceTree = "<group>"; };
 		B5F4C08F2A7B164400BFE637 /* HTTPClientSpy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClientSpy.swift; sourceTree = "<group>"; };
 		B5F4C0912A7B168500BFE637 /* RemoteFollowerLoaderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteFollowerLoaderTests.swift; sourceTree = "<group>"; };
@@ -232,7 +231,6 @@
 		B57DE0162529D5960048F8E8 = {
 			isa = PBXGroup;
 			children = (
-				B5D533B72A6AD26D0015F8D4 /* GHFollowers.xctestplan */,
 				B5764C3B2A4BAC1700B8BA56 /* GHFollowersTests.xctestplan */,
 				B57DE0212529D5960048F8E8 /* GHFollowers */,
 				B5764C332A4BAB9100B8BA56 /* GHFollowersTests */,
