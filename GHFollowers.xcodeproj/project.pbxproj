@@ -62,6 +62,9 @@
 		B57DE08C2529F2A10048F8E8 /* Follower.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57DE08B2529F2A10048F8E8 /* Follower.swift */; };
 		B59C817F2A612DA100013F4D /* UITextField+XCTestCaseHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = B59C817E2A612DA100013F4D /* UITextField+XCTestCaseHelpers.swift */; };
 		B5D533B62A6AD0C00015F8D4 /* FollowerLoaderManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D533B52A6AD0C00015F8D4 /* FollowerLoaderManager.swift */; };
+		B5F4C08E2A7B162B00BFE637 /* XCTestCase+MemoryLeakTracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F4C08D2A7B162B00BFE637 /* XCTestCase+MemoryLeakTracking.swift */; };
+		B5F4C0902A7B164400BFE637 /* HTTPClientSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F4C08F2A7B164400BFE637 /* HTTPClientSpy.swift */; };
+		B5F4C0922A7B168500BFE637 /* RemoteFollowerLoaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F4C0912A7B168500BFE637 /* RemoteFollowerLoaderTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -134,6 +137,9 @@
 		B59C817E2A612DA100013F4D /* UITextField+XCTestCaseHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+XCTestCaseHelpers.swift"; sourceTree = "<group>"; };
 		B5D533B52A6AD0C00015F8D4 /* FollowerLoaderManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowerLoaderManager.swift; sourceTree = "<group>"; };
 		B5D533B72A6AD26D0015F8D4 /* GHFollowers.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = GHFollowers.xctestplan; sourceTree = "<group>"; };
+		B5F4C08D2A7B162B00BFE637 /* XCTestCase+MemoryLeakTracking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+MemoryLeakTracking.swift"; sourceTree = "<group>"; };
+		B5F4C08F2A7B164400BFE637 /* HTTPClientSpy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClientSpy.swift; sourceTree = "<group>"; };
+		B5F4C0912A7B168500BFE637 /* RemoteFollowerLoaderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteFollowerLoaderTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -214,6 +220,7 @@
 			isa = PBXGroup;
 			children = (
 				B520D3752A514B190073AC50 /* ViewControllerPresentationSpy.xcframework */,
+				B5F4C08B2A7B15F300BFE637 /* Networking */,
 				B520D3782A514C070073AC50 /* Helpers */,
 				63142C1133805F3A2624326E /* Support */,
 				63142586E5DB3ABF939C88B8 /* Screens */,
@@ -412,6 +419,24 @@
 			path = Networking;
 			sourceTree = "<group>";
 		};
+		B5F4C08B2A7B15F300BFE637 /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				B5F4C08C2A7B160200BFE637 /* Helpers */,
+				B5F4C0912A7B168500BFE637 /* RemoteFollowerLoaderTests.swift */,
+			);
+			path = Networking;
+			sourceTree = "<group>";
+		};
+		B5F4C08C2A7B160200BFE637 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				B5F4C08D2A7B162B00BFE637 /* XCTestCase+MemoryLeakTracking.swift */,
+				B5F4C08F2A7B164400BFE637 /* HTTPClientSpy.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -515,11 +540,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				63142F865A902552987115D4 /* TestingAppDelegate.swift in Sources */,
+				B5F4C08E2A7B162B00BFE637 /* XCTestCase+MemoryLeakTracking.swift in Sources */,
 				B520D37A2A514C5B0073AC50 /* UIControllers+TestHelpers.swift in Sources */,
 				B523A22B2A62DAD2001E3695 /* FollowerListVCTests.swift in Sources */,
 				B520D37C2A515ED10073AC50 /* SharedTestHelpers.swift in Sources */,
 				63142D953C342643E2297760 /* SearchVCTests.swift in Sources */,
 				B59C817F2A612DA100013F4D /* UITextField+XCTestCaseHelpers.swift in Sources */,
+				B5F4C0902A7B164400BFE637 /* HTTPClientSpy.swift in Sources */,
+				B5F4C0922A7B168500BFE637 /* RemoteFollowerLoaderTests.swift in Sources */,
 				63142342764183DE45D9F0E5 /* GFTabBarControllerTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
