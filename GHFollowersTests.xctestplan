@@ -14,6 +14,10 @@
   "testTargets" : [
     {
       "selectedTests" : [
+        "FollowerListVCTests\/test_getFollowers_withErrorBeforeAsyncShouldNotShowAlert()",
+        "FollowerListVCTests\/test_getFollowers_withErrorShouldShowAlert()",
+        "FollowerListVCTests\/test_getFollowers_withSuccessResponseBeforeAsyncShouldNotSaveDataInResult()",
+        "FollowerListVCTests\/test_getFollowers_withSuccessResponseShouldSaveDataInResult()",
         "FollowerListVCTests\/test_viewDidLoad_shouldMakeDataTaskToSearchForMIF50()",
         "GFTabBarControllerTests\/test_viewDidLoad_favoriteTabBarItem()",
         "GFTabBarControllerTests\/test_viewDidLoad_firstSearchViewController()",
