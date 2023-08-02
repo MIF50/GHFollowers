@@ -61,7 +61,7 @@
 		B57DE0892529F2770048F8E8 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57DE0882529F2770048F8E8 /* User.swift */; };
 		B57DE08C2529F2A10048F8E8 /* Follower.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57DE08B2529F2A10048F8E8 /* Follower.swift */; };
 		B59C817F2A612DA100013F4D /* UITextField+XCTestCaseHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = B59C817E2A612DA100013F4D /* UITextField+XCTestCaseHelpers.swift */; };
-		B5D533B62A6AD0C00015F8D4 /* FollowerLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D533B52A6AD0C00015F8D4 /* FollowerLoader.swift */; };
+		B5D533B62A6AD0C00015F8D4 /* FollowerLoaderManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D533B52A6AD0C00015F8D4 /* FollowerLoaderManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -132,7 +132,7 @@
 		B57DE0882529F2770048F8E8 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		B57DE08B2529F2A10048F8E8 /* Follower.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Follower.swift; sourceTree = "<group>"; };
 		B59C817E2A612DA100013F4D /* UITextField+XCTestCaseHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+XCTestCaseHelpers.swift"; sourceTree = "<group>"; };
-		B5D533B52A6AD0C00015F8D4 /* FollowerLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowerLoader.swift; sourceTree = "<group>"; };
+		B5D533B52A6AD0C00015F8D4 /* FollowerLoaderManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowerLoaderManager.swift; sourceTree = "<group>"; };
 		B5D533B72A6AD26D0015F8D4 /* GHFollowers.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = GHFollowers.xctestplan; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -213,8 +213,8 @@
 		B5764C332A4BAB9100B8BA56 /* GHFollowersTests */ = {
 			isa = PBXGroup;
 			children = (
-				B520D3782A514C070073AC50 /* Helpers */,
 				B520D3752A514B190073AC50 /* ViewControllerPresentationSpy.xcframework */,
+				B520D3782A514C070073AC50 /* Helpers */,
 				63142C1133805F3A2624326E /* Support */,
 				63142586E5DB3ABF939C88B8 /* Screens */,
 				631420DC229E749F092125EE /* Controllers */,
@@ -407,7 +407,7 @@
 			isa = PBXGroup;
 			children = (
 				B50EBF642A75A8DC000C0AFD /* Shared */,
-				B5D533B52A6AD0C00015F8D4 /* FollowerLoader.swift */,
+				B5D533B52A6AD0C00015F8D4 /* FollowerLoaderManager.swift */,
 			);
 			path = Networking;
 			sourceTree = "<group>";
@@ -543,7 +543,7 @@
 				B57DE0592529DA860048F8E8 /* GFButton.swift in Sources */,
 				B57DE05F2529DABB0048F8E8 /* GFTitleLabel.swift in Sources */,
 				B57DE0682529DB3A0048F8E8 /* GFAvatarImageView.swift in Sources */,
-				B5D533B62A6AD0C00015F8D4 /* FollowerLoader.swift in Sources */,
+				B5D533B62A6AD0C00015F8D4 /* FollowerLoaderManager.swift in Sources */,
 				B563F38925330D270017A68A /* FollowerListVC.swift in Sources */,
 				B57DE0272529D5960048F8E8 /* ViewController.swift in Sources */,
 				B57DE0402529D6890048F8E8 /* UITableView+Ext.swift in Sources */,

@@ -93,7 +93,7 @@ final class FollowerListVCTests: XCTestCase {
         return (sut, session)
     }
     
-    private class FollowerLoaderSpy: FollowerLoader {}
+    private class FollowerLoaderSpy: FollowerLoaderManager {}
     
     private func jsonData() -> Data {
         """

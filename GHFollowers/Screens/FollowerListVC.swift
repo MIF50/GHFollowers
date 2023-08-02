@@ -34,7 +34,7 @@ class FollowerListVC: GFDataLoadingVC {
     fileprivate var isSearching = false
     fileprivate var isLoadingMoreFollowers = false
     
-    var loader: FollowerLoader = FollowerLoader()
+    var loader: FollowerLoaderManager = FollowerLoaderManager()
     
     init(userName: String) {
         super.init(nibName: nil, bundle: nil)

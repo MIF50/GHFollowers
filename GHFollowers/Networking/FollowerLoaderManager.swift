@@ -16,7 +16,7 @@ protocol URLSessionProtocol {
 
 extension URLSession: URLSessionProtocol {}
 
-class FollowerLoader {
+class FollowerLoaderManager {
         
     private let baseUrl = "https://api.github.com/users/"
         
