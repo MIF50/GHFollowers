@@ -19,13 +19,20 @@ class RemoteFollowerLoader {
     }
         
     func load(completion: @escaping ((FollowerLoader.Result) -> Void)) {
-        client.get(from: url) { _ in
-            completion(.failure(Error.connectivity))
+        client.get(from: url) { result in
+            switch result {
+            case .success:
+                completion(.failure(Error.invalidData))
+                
+            case .failure:
+                completion(.failure(Error.connectivity))
+            }
         }
     }
     
     public enum Error: Swift.Error {
         case connectivity
+        case invalidData
     }
 }
 
@@ -54,6 +61,18 @@ final class RemoteFollowerLoaderTests: XCTestCase {
             let clientError = NSError(domain: "Test", code: 0)
             client.complete(with: clientError)
         })
+    }
+    
+    func test_load_deliversInvalidDataErrorOnNon200HTTPResponse() {
+        let (sut, client) = makeSUT()
+
+        let samples = [199, 201, 300, 400, 500]
+        
+        samples.enumerated().forEach { index,code in
+            expect(sut, toCompleteWith: .failure(.invalidData), when: {
+                client.complete(withStatusCode: code, data: Data(),at: index)
+            })
+        }
     }
     
     //MARK: - Helpers
