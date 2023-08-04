@@ -21,8 +21,8 @@ class RemoteFollowerLoader {
     func load(completion: @escaping ((FollowerLoader.Result) -> Void)) {
         client.get(from: url) { result in
             switch result {
-            case .success:
-                completion(.failure(Error.invalidData))
+            case let .success((data,response)):
+                completion(FollowerMapper.map(data, from: response))
                 
             case .failure:
                 completion(.failure(Error.connectivity))
@@ -33,6 +33,28 @@ class RemoteFollowerLoader {
     public enum Error: Swift.Error {
         case connectivity
         case invalidData
+    }
+}
+
+enum FollowerMapper {
+
+    private struct Item: Decodable {
+        let login: String
+        let avatar_url: URL
+
+        var item: FollowerViewData {
+            FollowerViewData(login: login, url: avatar_url)
+        }
+    }
+
+    static func map(_ data: Data, from response: HTTPURLResponse) -> FollowerLoader.Result {
+        guard response.statusCode == 200,
+              let root = try? JSONDecoder().decode([Item].self, from: data)
+        else {
+            return .failure(RemoteFollowerLoader.Error.invalidData)
+        }
+        let items = root.map { $0.item }
+        return .success(items)
     }
 }
 
@@ -93,6 +115,15 @@ final class RemoteFollowerLoaderTests: XCTestCase {
         
         expect(sut, toCompleteWith: .failure(.invalidData), when: {
             let data = makeItemsJSON(items)
+            client.complete(withStatusCode: 200, data: data)
+        })
+    }
+    
+    func test_load_deliversSuccessWithNoItemsOn200HTTPResponseWithEmptyJSONList() {
+        let (sut, client) = makeSUT()
+        
+        expect(sut, toCompleteWith: .success([]), when: {
+            let data = makeItemsJSON([])
             client.complete(withStatusCode: 200, data: data)
         })
     }
