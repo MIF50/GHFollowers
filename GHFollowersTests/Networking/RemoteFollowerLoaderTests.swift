@@ -17,9 +17,15 @@ class RemoteFollowerLoader {
         self.url = url
         self.client = client
     }
+        
+    func load(completion: @escaping ((FollowerLoader.Result) -> Void)) {
+        client.get(from: url) { _ in
+            completion(.failure(Error.connectivity))
+        }
+    }
     
-    func load(completion: @escaping ((Any) -> Void)) {
-        client.get(from: url) { _ in }
+    public enum Error: Swift.Error {
+        case connectivity
     }
 }
 
@@ -39,6 +45,15 @@ final class RemoteFollowerLoaderTests: XCTestCase {
         sut.load { _ in }
 
         XCTAssertEqual(client.requestedURLs, [url, url])
+    }
+    
+    func test_load_deliversConnectivityErrorOnClientError() {
+        let (sut, client) = makeSUT()
+
+        expect(sut, toCompleteWith: .failure(.connectivity), when: {
+            let clientError = NSError(domain: "Test", code: 0)
+            client.complete(with: clientError)
+        })
     }
     
     //MARK: - Helpers

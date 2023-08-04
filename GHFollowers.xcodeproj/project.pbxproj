@@ -65,6 +65,9 @@
 		B5F4C08E2A7B162B00BFE637 /* XCTestCase+MemoryLeakTracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F4C08D2A7B162B00BFE637 /* XCTestCase+MemoryLeakTracking.swift */; };
 		B5F4C0902A7B164400BFE637 /* HTTPClientSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F4C08F2A7B164400BFE637 /* HTTPClientSpy.swift */; };
 		B5F4C0922A7B168500BFE637 /* RemoteFollowerLoaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F4C0912A7B168500BFE637 /* RemoteFollowerLoaderTests.swift */; };
+		B5F4C0952A7B19CD00BFE637 /* FollowerLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F4C0942A7B19CD00BFE637 /* FollowerLoader.swift */; };
+		B5F4C0972A7B19E000BFE637 /* FollowerViewData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F4C0962A7B19E000BFE637 /* FollowerViewData.swift */; };
+		B5F4C0992A7B1A7B00BFE637 /* RemoteFollowerLoaderTests+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F4C0982A7B1A7B00BFE637 /* RemoteFollowerLoaderTests+Helpers.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -139,6 +142,9 @@
 		B5F4C08D2A7B162B00BFE637 /* XCTestCase+MemoryLeakTracking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+MemoryLeakTracking.swift"; sourceTree = "<group>"; };
 		B5F4C08F2A7B164400BFE637 /* HTTPClientSpy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClientSpy.swift; sourceTree = "<group>"; };
 		B5F4C0912A7B168500BFE637 /* RemoteFollowerLoaderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteFollowerLoaderTests.swift; sourceTree = "<group>"; };
+		B5F4C0942A7B19CD00BFE637 /* FollowerLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowerLoader.swift; sourceTree = "<group>"; };
+		B5F4C0962A7B19E000BFE637 /* FollowerViewData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowerViewData.swift; sourceTree = "<group>"; };
+		B5F4C0982A7B1A7B00BFE637 /* RemoteFollowerLoaderTests+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RemoteFollowerLoaderTests+Helpers.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -250,6 +256,7 @@
 		B57DE0212529D5960048F8E8 /* GHFollowers */ = {
 			isa = PBXGroup;
 			children = (
+				B5F4C0932A7B19C100BFE637 /* Follower Feature */,
 				B5D533B42A6AD0AE0015F8D4 /* Networking */,
 				B57DE03A2529D5DC0048F8E8 /* Support */,
 				B57DE03E2529D60F0048F8E8 /* Extensions */,
@@ -431,8 +438,18 @@
 			children = (
 				B5F4C08D2A7B162B00BFE637 /* XCTestCase+MemoryLeakTracking.swift */,
 				B5F4C08F2A7B164400BFE637 /* HTTPClientSpy.swift */,
+				B5F4C0982A7B1A7B00BFE637 /* RemoteFollowerLoaderTests+Helpers.swift */,
 			);
 			path = Helpers;
+			sourceTree = "<group>";
+		};
+		B5F4C0932A7B19C100BFE637 /* Follower Feature */ = {
+			isa = PBXGroup;
+			children = (
+				B5F4C0942A7B19CD00BFE637 /* FollowerLoader.swift */,
+				B5F4C0962A7B19E000BFE637 /* FollowerViewData.swift */,
+			);
+			path = "Follower Feature";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -542,6 +559,7 @@
 				B520D37A2A514C5B0073AC50 /* UIControllers+TestHelpers.swift in Sources */,
 				B523A22B2A62DAD2001E3695 /* FollowerListVCTests.swift in Sources */,
 				B520D37C2A515ED10073AC50 /* SharedTestHelpers.swift in Sources */,
+				B5F4C0992A7B1A7B00BFE637 /* RemoteFollowerLoaderTests+Helpers.swift in Sources */,
 				63142D953C342643E2297760 /* SearchVCTests.swift in Sources */,
 				B59C817F2A612DA100013F4D /* UITextField+XCTestCaseHelpers.swift in Sources */,
 				B5F4C0902A7B164400BFE637 /* HTTPClientSpy.swift in Sources */,
@@ -559,6 +577,7 @@
 				B57DE0832529F2190048F8E8 /* PersistenceManager.swift in Sources */,
 				B563F38625330A460017A68A /* FavoritesListVC.swift in Sources */,
 				B57DE0782529EFBA0048F8E8 /* Constants.swift in Sources */,
+				B5F4C0972A7B19E000BFE637 /* FollowerViewData.swift in Sources */,
 				B57DE0462529D6B20048F8E8 /* String+Ext.swift in Sources */,
 				B563F39A25332D470017A68A /* GFRepoItemVC.swift in Sources */,
 				B57DE0712529DB8F0048F8E8 /* GFItemInfoView.swift in Sources */,
@@ -578,6 +597,7 @@
 				B55902B025664B36006D46B3 /* UIView+Layout.swift in Sources */,
 				B563F39725332C150017A68A /* GFItemInfoVC.swift in Sources */,
 				B57DE0652529DB090048F8E8 /* FollowerCell.swift in Sources */,
+				B5F4C0952A7B19CD00BFE637 /* FollowerLoader.swift in Sources */,
 				B563F38C25330D700017A68A /* GFDataLoadingVC.swift in Sources */,
 				B57DE08C2529F2A10048F8E8 /* Follower.swift in Sources */,
 				B57DE06B2529DB520048F8E8 /* GFEmptyStateView.swift in Sources */,
