@@ -75,6 +75,15 @@ final class RemoteFollowerLoaderTests: XCTestCase {
         }
     }
     
+    func test_load_deliversInvalidDataErrorOn200HTTPResponseWithInvalidJSON() {
+        let (sut, client) = makeSUT()
+        
+        expect(sut, toCompleteWith: .failure(.invalidData), when: {
+            let invalidJson = Data("invalid data".utf8)
+            client.complete(withStatusCode: 200, data: invalidJson)
+        })
+    }
+    
     //MARK: - Helpers
     
     private func makeSUT(
