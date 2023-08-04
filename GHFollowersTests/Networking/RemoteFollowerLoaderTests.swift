@@ -84,6 +84,19 @@ final class RemoteFollowerLoaderTests: XCTestCase {
         })
     }
     
+    func test_load_deliversInvalidDataErrorOn200HTTPResponseWithPartiallyValidJSONItems() {
+        let (sut, client) = makeSUT()
+        
+        let validItem = makeItem(login: "login-1", imageURL: URL(string: "https://url-1.com")!).json
+        let invalidItem = ["invalid": "item"]
+        let items = [validItem,invalidItem]
+        
+        expect(sut, toCompleteWith: .failure(.invalidData), when: {
+            let data = makeItemsJSON(items)
+            client.complete(withStatusCode: 200, data: data)
+        })
+    }
+    
     //MARK: - Helpers
     
     private func makeSUT(
@@ -96,6 +109,21 @@ final class RemoteFollowerLoaderTests: XCTestCase {
         trackForMemoryLeaks(sut, file: file, line: line)
         trackForMemoryLeaks(client, file: file, line: line)
         return (sut, client)
+    }
+    
+    private func makeItem(login: String, imageURL: URL) -> (model: FollowerViewData, json: [String: Any]) {
+        let item = FollowerViewData(login: login, url: imageURL)
+
+        let json = [
+            "login": login,
+            "avatar_url": imageURL.absoluteString
+        ].compactMapValues { $0 }
+
+        return (item, json)
+    }
+
+    private func makeItemsJSON(_ items: [[String: Any]]) -> Data {
+        return try! JSONSerialization.data(withJSONObject: items)
     }
 }
 

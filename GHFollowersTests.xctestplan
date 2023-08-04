@@ -36,6 +36,7 @@
         "RemoteFollowerLoaderTests\/test_loadTwice_requestsDataFromURLTwice()",
         "RemoteFollowerLoaderTests\/test_load_deliversConnectivityErrorOnClientError()",
         "RemoteFollowerLoaderTests\/test_load_deliversInvalidDataErrorOn200HTTPResponseWithInvalidJSON()",
+        "RemoteFollowerLoaderTests\/test_load_deliversInvalidDataErrorOn200HTTPResponseWithPartiallyValidJSONItems()",
         "RemoteFollowerLoaderTests\/test_load_deliversInvalidDataErrorOnNon200HTTPResponse()",
         "SearchVCTests\/test_init_hasTitle()",
         "SearchVCTests\/test_shouldRetrun_withEmptyUsername_shouldNotPushFollowerList()",
