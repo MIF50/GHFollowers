@@ -128,6 +128,17 @@ final class RemoteFollowerLoaderTests: XCTestCase {
         })
     }
     
+    func test_load_deliversSuccessWithItemsOn200HTTPResponseWithJSOnItems() {
+        let (sut, client) = makeSUT()
+        let item1 = makeItem(login: "login-1", imageURL: URL(string: "https://url-1.com")!)
+        let item2 = makeItem(login: "login-2", imageURL: URL(string: "https://url-2.com")!)
+
+        expect(sut, toCompleteWith: .success([item1.model,item2.model]), when: {
+            let data = makeItemsJSON([item1.json,item2.json])
+            client.complete(withStatusCode: 200, data: data)
+        })
+    }
+    
     //MARK: - Helpers
     
     private func makeSUT(

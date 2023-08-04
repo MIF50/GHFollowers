@@ -38,6 +38,7 @@
         "RemoteFollowerLoaderTests\/test_load_deliversInvalidDataErrorOn200HTTPResponseWithInvalidJSON()",
         "RemoteFollowerLoaderTests\/test_load_deliversInvalidDataErrorOn200HTTPResponseWithPartiallyValidJSONItems()",
         "RemoteFollowerLoaderTests\/test_load_deliversInvalidDataErrorOnNon200HTTPResponse()",
+        "RemoteFollowerLoaderTests\/test_load_deliversSuccessWithItemsOn200HTTPResponseWithJSOnItems()",
         "RemoteFollowerLoaderTests\/test_load_deliversSuccessWithNoItemsOn200HTTPResponseWithEmptyJSONList()",
         "SearchVCTests\/test_init_hasTitle()",
         "SearchVCTests\/test_shouldRetrun_withEmptyUsername_shouldNotPushFollowerList()",
