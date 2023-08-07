@@ -40,6 +40,7 @@
         "RemoteFollowerLoaderTests\/test_load_deliversInvalidDataErrorOnNon200HTTPResponse()",
         "RemoteFollowerLoaderTests\/test_load_deliversSuccessWithItemsOn200HTTPResponseWithJSOnItems()",
         "RemoteFollowerLoaderTests\/test_load_deliversSuccessWithNoItemsOn200HTTPResponseWithEmptyJSONList()",
+        "RemoteFollowerLoaderTests\/test_load_doesNotDeliverResultAfterSUTInstanceHasBeenDeallocated()",
         "SearchVCTests\/test_init_hasTitle()",
         "SearchVCTests\/test_shouldRetrun_withEmptyUsername_shouldNotPushFollowerList()",
         "SearchVCTests\/test_shouldReturnTextField_withEmptyUsername_showPrsentationAlert()",

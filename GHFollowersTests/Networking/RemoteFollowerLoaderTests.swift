@@ -19,7 +19,9 @@ class RemoteFollowerLoader {
     }
         
     func load(completion: @escaping ((FollowerLoader.Result) -> Void)) {
-        client.get(from: url) { result in
+        client.get(from: url) { [weak self] result in
+            guard self != nil else { return }
+
             switch result {
             case let .success((data,response)):
                 completion(FollowerMapper.map(data, from: response))
@@ -137,6 +139,20 @@ final class RemoteFollowerLoaderTests: XCTestCase {
             let data = makeItemsJSON([item1.json,item2.json])
             client.complete(withStatusCode: 200, data: data)
         })
+    }
+    
+    func test_load_doesNotDeliverResultAfterSUTInstanceHasBeenDeallocated() {
+        let url = URL(string: "http://any-url.com")!
+        let client = HTTPClientSpy()
+        var sut: RemoteFollowerLoader? = RemoteFollowerLoader(url: url, client: client)
+        
+        var capturedResult = [FollowerLoader.Result]()
+        sut?.load(completion: { capturedResult.append($0) })
+        
+        sut = nil
+        client.complete(withStatusCode: 200, data: makeItemsJSON([]))
+        
+        XCTAssertTrue(capturedResult.isEmpty)
     }
     
     //MARK: - Helpers
