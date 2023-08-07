@@ -18,6 +18,8 @@
 		B520D37A2A514C5B0073AC50 /* UIControllers+TestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = B520D3792A514C5B0073AC50 /* UIControllers+TestHelpers.swift */; };
 		B520D37C2A515ED10073AC50 /* SharedTestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = B520D37B2A515ED10073AC50 /* SharedTestHelpers.swift */; };
 		B522EF212A81737900119C09 /* URLSessionHTTPClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B522EF202A81737900119C09 /* URLSessionHTTPClientTests.swift */; };
+		B522EF252A81751B00119C09 /* RemoteFollowerLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B522EF242A81751B00119C09 /* RemoteFollowerLoader.swift */; };
+		B522EF272A81754F00119C09 /* FollowerMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B522EF262A81754F00119C09 /* FollowerMapper.swift */; };
 		B523A22B2A62DAD2001E3695 /* FollowerListVCTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B523A22A2A62DAD2001E3695 /* FollowerListVCTests.swift */; };
 		B55902B025664B36006D46B3 /* UIView+Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = B55902AF25664B36006D46B3 /* UIView+Layout.swift */; };
 		B563F3802533089D0017A68A /* GFTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B563F37F2533089D0017A68A /* GFTabBarController.swift */; };
@@ -92,6 +94,8 @@
 		B520D3792A514C5B0073AC50 /* UIControllers+TestHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIControllers+TestHelpers.swift"; sourceTree = "<group>"; };
 		B520D37B2A515ED10073AC50 /* SharedTestHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedTestHelpers.swift; sourceTree = "<group>"; };
 		B522EF202A81737900119C09 /* URLSessionHTTPClientTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionHTTPClientTests.swift; sourceTree = "<group>"; };
+		B522EF242A81751B00119C09 /* RemoteFollowerLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteFollowerLoader.swift; sourceTree = "<group>"; };
+		B522EF262A81754F00119C09 /* FollowerMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowerMapper.swift; sourceTree = "<group>"; };
 		B523A22A2A62DAD2001E3695 /* FollowerListVCTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowerListVCTests.swift; sourceTree = "<group>"; };
 		B55902AF25664B36006D46B3 /* UIView+Layout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Layout.swift"; sourceTree = "<group>"; };
 		B563F37F2533089D0017A68A /* GFTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFTabBarController.swift; sourceTree = "<group>"; };
@@ -218,6 +222,23 @@
 				B522EF202A81737900119C09 /* URLSessionHTTPClientTests.swift */,
 			);
 			path = "Shared API";
+			sourceTree = "<group>";
+		};
+		B522EF222A8174EC00119C09 /* Follower API */ = {
+			isa = PBXGroup;
+			children = (
+				B522EF242A81751B00119C09 /* RemoteFollowerLoader.swift */,
+				B522EF262A81754F00119C09 /* FollowerMapper.swift */,
+			);
+			path = "Follower API";
+			sourceTree = "<group>";
+		};
+		B522EF232A8174F900119C09 /* Follower API */ = {
+			isa = PBXGroup;
+			children = (
+				B5F4C0912A7B168500BFE637 /* RemoteFollowerLoaderTests.swift */,
+			);
+			path = "Follower API";
 			sourceTree = "<group>";
 		};
 		B563F39125332B520017A68A /* ItemInfo */ = {
@@ -428,6 +449,7 @@
 		B5D533B42A6AD0AE0015F8D4 /* Networking */ = {
 			isa = PBXGroup;
 			children = (
+				B522EF222A8174EC00119C09 /* Follower API */,
 				B50EBF642A75A8DC000C0AFD /* Shared API */,
 				B5D533B52A6AD0C00015F8D4 /* FollowerLoaderManager.swift */,
 			);
@@ -439,7 +461,7 @@
 			children = (
 				B5F4C08C2A7B160200BFE637 /* Helpers */,
 				B522EF1F2A81736700119C09 /* Shared API */,
-				B5F4C0912A7B168500BFE637 /* RemoteFollowerLoaderTests.swift */,
+				B522EF232A8174F900119C09 /* Follower API */,
 			);
 			path = Networking;
 			sourceTree = "<group>";
@@ -586,8 +608,10 @@
 			files = (
 				B563F3802533089D0017A68A /* GFTabBarController.swift in Sources */,
 				B57DE05C2529DA9B0048F8E8 /* GFTextField.swift in Sources */,
+				B522EF272A81754F00119C09 /* FollowerMapper.swift in Sources */,
 				B57DE0832529F2190048F8E8 /* PersistenceManager.swift in Sources */,
 				B563F38625330A460017A68A /* FavoritesListVC.swift in Sources */,
+				B522EF252A81751B00119C09 /* RemoteFollowerLoader.swift in Sources */,
 				B57DE0782529EFBA0048F8E8 /* Constants.swift in Sources */,
 				B5F4C0972A7B19E000BFE637 /* FollowerViewData.swift in Sources */,
 				B57DE0462529D6B20048F8E8 /* String+Ext.swift in Sources */,
