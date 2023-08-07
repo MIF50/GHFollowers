@@ -17,6 +17,7 @@
 		B520D3772A514B320073AC50 /* ViewControllerPresentationSpy.xcframework in Resources */ = {isa = PBXBuildFile; fileRef = B520D3752A514B190073AC50 /* ViewControllerPresentationSpy.xcframework */; };
 		B520D37A2A514C5B0073AC50 /* UIControllers+TestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = B520D3792A514C5B0073AC50 /* UIControllers+TestHelpers.swift */; };
 		B520D37C2A515ED10073AC50 /* SharedTestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = B520D37B2A515ED10073AC50 /* SharedTestHelpers.swift */; };
+		B522EF212A81737900119C09 /* URLSessionHTTPClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B522EF202A81737900119C09 /* URLSessionHTTPClientTests.swift */; };
 		B523A22B2A62DAD2001E3695 /* FollowerListVCTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B523A22A2A62DAD2001E3695 /* FollowerListVCTests.swift */; };
 		B55902B025664B36006D46B3 /* UIView+Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = B55902AF25664B36006D46B3 /* UIView+Layout.swift */; };
 		B563F3802533089D0017A68A /* GFTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B563F37F2533089D0017A68A /* GFTabBarController.swift */; };
@@ -90,6 +91,7 @@
 		B520D3752A514B190073AC50 /* ViewControllerPresentationSpy.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = ViewControllerPresentationSpy.xcframework; sourceTree = "<group>"; };
 		B520D3792A514C5B0073AC50 /* UIControllers+TestHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIControllers+TestHelpers.swift"; sourceTree = "<group>"; };
 		B520D37B2A515ED10073AC50 /* SharedTestHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedTestHelpers.swift; sourceTree = "<group>"; };
+		B522EF202A81737900119C09 /* URLSessionHTTPClientTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionHTTPClientTests.swift; sourceTree = "<group>"; };
 		B523A22A2A62DAD2001E3695 /* FollowerListVCTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowerListVCTests.swift; sourceTree = "<group>"; };
 		B55902AF25664B36006D46B3 /* UIView+Layout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Layout.swift"; sourceTree = "<group>"; };
 		B563F37F2533089D0017A68A /* GFTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFTabBarController.swift; sourceTree = "<group>"; };
@@ -191,13 +193,13 @@
 			path = Support;
 			sourceTree = "<group>";
 		};
-		B50EBF642A75A8DC000C0AFD /* Shared */ = {
+		B50EBF642A75A8DC000C0AFD /* Shared API */ = {
 			isa = PBXGroup;
 			children = (
 				B50EBF652A75A8F0000C0AFD /* HTTPClient.swift */,
 				B50EBF672A75A96F000C0AFD /* URLSessionHTTPClient.swift */,
 			);
-			path = Shared;
+			path = "Shared API";
 			sourceTree = "<group>";
 		};
 		B520D3782A514C070073AC50 /* Helpers */ = {
@@ -208,6 +210,14 @@
 				B59C817E2A612DA100013F4D /* UITextField+XCTestCaseHelpers.swift */,
 			);
 			path = Helpers;
+			sourceTree = "<group>";
+		};
+		B522EF1F2A81736700119C09 /* Shared API */ = {
+			isa = PBXGroup;
+			children = (
+				B522EF202A81737900119C09 /* URLSessionHTTPClientTests.swift */,
+			);
+			path = "Shared API";
 			sourceTree = "<group>";
 		};
 		B563F39125332B520017A68A /* ItemInfo */ = {
@@ -418,7 +428,7 @@
 		B5D533B42A6AD0AE0015F8D4 /* Networking */ = {
 			isa = PBXGroup;
 			children = (
-				B50EBF642A75A8DC000C0AFD /* Shared */,
+				B50EBF642A75A8DC000C0AFD /* Shared API */,
 				B5D533B52A6AD0C00015F8D4 /* FollowerLoaderManager.swift */,
 			);
 			path = Networking;
@@ -428,6 +438,7 @@
 			isa = PBXGroup;
 			children = (
 				B5F4C08C2A7B160200BFE637 /* Helpers */,
+				B522EF1F2A81736700119C09 /* Shared API */,
 				B5F4C0912A7B168500BFE637 /* RemoteFollowerLoaderTests.swift */,
 			);
 			path = Networking;
@@ -561,6 +572,7 @@
 				B520D37C2A515ED10073AC50 /* SharedTestHelpers.swift in Sources */,
 				B5F4C0992A7B1A7B00BFE637 /* RemoteFollowerLoaderTests+Helpers.swift in Sources */,
 				63142D953C342643E2297760 /* SearchVCTests.swift in Sources */,
+				B522EF212A81737900119C09 /* URLSessionHTTPClientTests.swift in Sources */,
 				B59C817F2A612DA100013F4D /* UITextField+XCTestCaseHelpers.swift in Sources */,
 				B5F4C0902A7B164400BFE637 /* HTTPClientSpy.swift in Sources */,
 				B5F4C0922A7B168500BFE637 /* RemoteFollowerLoaderTests.swift in Sources */,

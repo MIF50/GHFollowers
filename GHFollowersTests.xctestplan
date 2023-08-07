@@ -56,7 +56,12 @@
         "SearchVCTests\/test_viewDidLoad_logoImageView_imageData()",
         "SearchVCTests\/test_viewDidLoad_subviews()",
         "SearchVCTests\/test_viewDidLoad_userNameTextField_delegate()",
-        "SearchVCTests\/test_viewWillAppear_hideNavigationBar()"
+        "SearchVCTests\/test_viewWillAppear_hideNavigationBar()",
+        "URLSessionHTTPClientTests\/test_getFromURL_failsOnAllInvalidRepresentationCases()",
+        "URLSessionHTTPClientTests\/test_getFromURL_failsOnRequestError()",
+        "URLSessionHTTPClientTests\/test_getFromURL_performsGETRequestWithURL()",
+        "URLSessionHTTPClientTests\/test_getFromURL_succeedsOnHTTPURLResponseWithData()",
+        "URLSessionHTTPClientTests\/test_getFromURL_succeedsWithEmptyDataOnHTTPURLResponseWithNilData()"
       ],
       "target" : {
         "containerPath" : "container:GHFollowers.xcodeproj",
